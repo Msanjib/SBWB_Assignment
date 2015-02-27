@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.lftechnology.sbwbtraining.model.Department">
+		<field name="departmentId" type="long" />
+		<field name="departmentName" type="String" />
+		<field name="createdBy" type="String" />
+		<field name="createdOn" type="String" />
+		<field name="companyId" type="long" />
+		<field name="groupId" type="long" />
+	</model>
+</model-hints>
