@@ -1,5 +1,8 @@
 *.class
 
+department-management-portlet/target/
+department-management-portlet-service/target/
+
 # Package Files #
 *.jar
 *.war

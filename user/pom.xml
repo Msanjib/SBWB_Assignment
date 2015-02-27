@@ -60,6 +60,7 @@
 			<groupId>com.lftechnology.sbwbtraining</groupId>
 			<artifactId>department-management-portlet-service</artifactId>
 			<version>${pom.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.liferay.portal</groupId>
