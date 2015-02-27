@@ -261,6 +261,30 @@ public class DepartmentLocalServiceUtil {
         return getService().invokeMethod(name, parameterTypes, arguments);
     }
 
+    /**
+    * Method use to get list of all department.
+    *
+    * @author leapfrog
+    * @return {@link List} of {@link Department}
+    */
+    public static java.util.List<com.lftechnology.sbwbtraining.model.Department> getEveryDepartments()
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getService().getEveryDepartments();
+    }
+
+    public static com.lftechnology.sbwbtraining.model.Department addUpdateDepartment(
+        com.lftechnology.sbwbtraining.model.Department department)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return getService().addUpdateDepartment(department);
+    }
+
+    public static void deleteDepartmentById(long departmentId)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        getService().deleteDepartmentById(departmentId);
+    }
+
     public static void clearService() {
         _service = null;
     }

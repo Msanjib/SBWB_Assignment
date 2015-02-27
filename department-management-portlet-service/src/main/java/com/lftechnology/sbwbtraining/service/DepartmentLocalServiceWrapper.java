@@ -257,6 +257,30 @@ public class DepartmentLocalServiceWrapper implements DepartmentLocalService,
     }
 
     /**
+    * Method use to get list of all department.
+    *
+    * @author leapfrog
+    * @return {@link List} of {@link Department}
+    */
+    public java.util.List<com.lftechnology.sbwbtraining.model.Department> getEveryDepartments()
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return _departmentLocalService.getEveryDepartments();
+    }
+
+    public com.lftechnology.sbwbtraining.model.Department addUpdateDepartment(
+        com.lftechnology.sbwbtraining.model.Department department)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _departmentLocalService.addUpdateDepartment(department);
+    }
+
+    public void deleteDepartmentById(long departmentId)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        _departmentLocalService.deleteDepartmentById(departmentId);
+    }
+
+    /**
      * @deprecated Renamed to {@link #getWrappedService}
      */
     public DepartmentLocalService getWrappedDepartmentLocalService() {

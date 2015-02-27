@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.lftechnology.sbwbtraining</groupId>
 		<artifactId>department-management</artifactId>
-		<version>artver1</version>
+		<version>artver</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
@@ -13,7 +13,7 @@
 	<artifactId>user</artifactId>
 	<packaging>war</packaging>
 	<name>user Portlet</name>
-	<version>artver1</version>
+	<version>artver</version>
 	<build>
 		<plugins>
 			<plugin>

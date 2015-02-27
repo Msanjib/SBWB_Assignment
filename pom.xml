@@ -6,7 +6,7 @@
 	<artifactId>department-management</artifactId>
 	<packaging>pom</packaging>
 	<name>department-management</name>
-	<version>artver1</version>
+	<version>artver</version>
 	<properties>
 		<liferay.version>6.1.2</liferay.version>
 		<liferay.maven.plugin.version>6.1.2</liferay.maven.plugin.version>

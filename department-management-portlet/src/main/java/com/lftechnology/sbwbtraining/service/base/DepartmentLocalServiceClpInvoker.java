@@ -42,6 +42,12 @@ public class DepartmentLocalServiceClpInvoker {
     private String[] _methodParameterTypes38;
     private String _methodName39;
     private String[] _methodParameterTypes39;
+    private String _methodName44;
+    private String[] _methodParameterTypes44;
+    private String _methodName45;
+    private String[] _methodParameterTypes45;
+    private String _methodName46;
+    private String[] _methodParameterTypes46;
 
     public DepartmentLocalServiceClpInvoker() {
         _methodName0 = "addDepartment";
@@ -132,6 +138,20 @@ public class DepartmentLocalServiceClpInvoker {
         _methodName39 = "setBeanIdentifier";
 
         _methodParameterTypes39 = new String[] { "java.lang.String" };
+
+        _methodName44 = "getEveryDepartments";
+
+        _methodParameterTypes44 = new String[] {  };
+
+        _methodName45 = "addUpdateDepartment";
+
+        _methodParameterTypes45 = new String[] {
+                "com.lftechnology.sbwbtraining.model.Department"
+            };
+
+        _methodName46 = "deleteDepartmentById";
+
+        _methodParameterTypes46 = new String[] { "long" };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -231,6 +251,23 @@ public class DepartmentLocalServiceClpInvoker {
         if (_methodName39.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes39, parameterTypes)) {
             DepartmentLocalServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
+
+            return null;
+        }
+
+        if (_methodName44.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes44, parameterTypes)) {
+            return DepartmentLocalServiceUtil.getEveryDepartments();
+        }
+
+        if (_methodName45.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes45, parameterTypes)) {
+            return DepartmentLocalServiceUtil.addUpdateDepartment((com.lftechnology.sbwbtraining.model.Department) arguments[0]);
+        }
+
+        if (_methodName46.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes46, parameterTypes)) {
+            DepartmentLocalServiceUtil.deleteDepartmentById(((Long) arguments[0]).longValue());
 
             return null;
         }

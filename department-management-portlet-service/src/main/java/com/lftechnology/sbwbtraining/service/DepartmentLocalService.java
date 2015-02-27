@@ -233,4 +233,23 @@ public interface DepartmentLocalService extends BaseLocalService,
     public java.lang.Object invokeMethod(java.lang.String name,
         java.lang.String[] parameterTypes, java.lang.Object[] arguments)
         throws java.lang.Throwable;
+
+    /**
+    * Method use to get list of all department.
+    *
+    * @author leapfrog
+    * @return {@link List} of {@link Department}
+    */
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public java.util.List<com.lftechnology.sbwbtraining.model.Department> getEveryDepartments()
+        throws com.liferay.portal.kernel.exception.SystemException;
+
+    public com.lftechnology.sbwbtraining.model.Department addUpdateDepartment(
+        com.lftechnology.sbwbtraining.model.Department department)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException;
+
+    public void deleteDepartmentById(long departmentId)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException;
 }

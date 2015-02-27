@@ -1,0 +1,61 @@
+.clear{
+	clear: both;
+}
+.form-wrapper{
+	background: #D8DFE9;
+	padding:120px 20px;
+	background: #EAEAEA;
+}
+.wrapper-add{
+	background: #ffffff;
+	padding:5px;
+	border-radius:5px;
+	float: right;
+}
+.wrapper-display{
+	background: #ffffff;
+	padding:5px;
+	border-radius:5px;
+	float: left;
+}
+.wrapper-add form{
+	margin-top: 10px;
+}
+.wrapper-add form input[type='text']{
+	border-radius:5px;
+	background: #EEF0F2;
+}
+h1.add-title{
+	font-size: 13px;
+	background: #66747E;
+	margin:0;
+	margin-bottom:5px;
+	display:inline-block;;
+	padding: 5px;
+	border-radius:5px;
+	color:#ffffff;
+}
+
+
+table.ui-jqgrid-btable tr:first-child td{
+    
+}
+table.ui-jqgrid-btable tr:hover td{
+    background: #FF7448;
+}
+
+
+
+
+.cfix:after {
+     visibility: hidden;
+     display: block;
+     font-size: 0;
+     content: " ";
+     clear: both;
+     height: 0;
+     }
+.cfix { display: inline-block; }
+/* start commented backslash hack \*/
+* html .cfix { height: 1%; }
+.cfix { display: block; }
