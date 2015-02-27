@@ -51,7 +51,7 @@
 	</build>
 	<modules>
 		<module>department-management-portlet</module>
-		<module>user</module>
 		<module>department-management-portlet-service</module>
+		<module>user</module>
 	</modules>
 </project>
