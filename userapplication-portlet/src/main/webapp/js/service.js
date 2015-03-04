@@ -1,0 +1,1 @@
+Liferay.Service.register("Liferay.Service.MO", "com.lftechnology.sbwbtraining.userapplication.service", "userapplication-portlet");

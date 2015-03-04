@@ -249,8 +249,7 @@ public class DepartmentWrapper implements Department, ModelWrapper<Department> {
         return new DepartmentWrapper((Department) _department.clone());
     }
 
-    public int compareTo(
-        com.lftechnology.sbwbtraining.model.Department department) {
+    public int compareTo(Department department) {
         return _department.compareTo(department);
     }
 
@@ -259,15 +258,15 @@ public class DepartmentWrapper implements Department, ModelWrapper<Department> {
         return _department.hashCode();
     }
 
-    public com.liferay.portal.model.CacheModel<com.lftechnology.sbwbtraining.model.Department> toCacheModel() {
+    public com.liferay.portal.model.CacheModel<Department> toCacheModel() {
         return _department.toCacheModel();
     }
 
-    public com.lftechnology.sbwbtraining.model.Department toEscapedModel() {
+    public Department toEscapedModel() {
         return new DepartmentWrapper(_department.toEscapedModel());
     }
 
-    public com.lftechnology.sbwbtraining.model.Department toUnescapedModel() {
+    public Department toUnescapedModel() {
         return new DepartmentWrapper(_department.toUnescapedModel());
     }
 

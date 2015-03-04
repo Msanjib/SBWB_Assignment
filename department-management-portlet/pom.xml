@@ -1,11 +1,9 @@
 <?xml version="1.0"?>
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<parent>
 		<groupId>com.lftechnology.sbwbtraining</groupId>
 		<artifactId>department-management</artifactId>
 		<version>artver1</version>
-		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.lftechnology.sbwbtraining</groupId>
@@ -37,7 +35,8 @@
 		<dependency>
 			<groupId>com.lftechnology.sbwbtraining</groupId>
 			<artifactId>department-management-portlet-service</artifactId>
-			<version>${pom.version}</version>
+			<version>${project.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.liferay.portal</groupId>
