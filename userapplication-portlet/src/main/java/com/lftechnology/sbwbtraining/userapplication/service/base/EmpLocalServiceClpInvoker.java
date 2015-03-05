@@ -44,6 +44,12 @@ public class EmpLocalServiceClpInvoker {
     private String[] _methodParameterTypes39;
     private String _methodName44;
     private String[] _methodParameterTypes44;
+    private String _methodName45;
+    private String[] _methodParameterTypes45;
+    private String _methodName46;
+    private String[] _methodParameterTypes46;
+    private String _methodName47;
+    private String[] _methodParameterTypes47;
 
     public EmpLocalServiceClpInvoker() {
         _methodName0 = "addEmp";
@@ -141,6 +147,20 @@ public class EmpLocalServiceClpInvoker {
         _methodParameterTypes44 = new String[] {
                 "com.lftechnology.sbwbtraining.userapplication.model.Emp"
             };
+
+        _methodName45 = "getEveryEmployee";
+
+        _methodParameterTypes45 = new String[] {  };
+
+        _methodName46 = "addUpdateEmployee";
+
+        _methodParameterTypes46 = new String[] {
+                "com.lftechnology.sbwbtraining.userapplication.model.Emp"
+            };
+
+        _methodName47 = "deleteEmployeeById";
+
+        _methodParameterTypes47 = new String[] { "long" };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -247,6 +267,21 @@ public class EmpLocalServiceClpInvoker {
         if (_methodName44.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes44, parameterTypes)) {
             return EmpLocalServiceUtil.addUpdateEmp((com.lftechnology.sbwbtraining.userapplication.model.Emp) arguments[0]);
+        }
+
+        if (_methodName45.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes45, parameterTypes)) {
+            return EmpLocalServiceUtil.getEveryEmployee();
+        }
+
+        if (_methodName46.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes46, parameterTypes)) {
+            return EmpLocalServiceUtil.addUpdateEmployee((com.lftechnology.sbwbtraining.userapplication.model.Emp) arguments[0]);
+        }
+
+        if (_methodName47.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes47, parameterTypes)) {
+            return EmpLocalServiceUtil.deleteEmployeeById(((Long) arguments[0]).longValue());
         }
 
         throw new UnsupportedOperationException();

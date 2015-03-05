@@ -243,4 +243,49 @@ public interface EmpLocalService extends BaseLocalService, InvokableLocalService
         com.lftechnology.sbwbtraining.userapplication.model.Emp moUser)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException;
+
+    /**
+    * This methods retrives all the {@link Emp} instances stored in the database.
+    *
+    * @return the list of {@link Emp} instances
+    * @throws SystemException
+    * @author sanjib maharjan
+    */
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public java.util.List<com.lftechnology.sbwbtraining.userapplication.model.Emp> getEveryEmployee()
+        throws com.liferay.portal.kernel.exception.SystemException;
+
+    /**
+    * This method adds or updates the given model of {@link Emp} to the
+    * database. The addition or update depends on the identification stored in
+    * given <code>employee</code> as parameter.If it is 0 then addition
+    * operation is done or else update operation is done.
+    *
+    * @param employee
+    a {@link Emp} instance to store or update in the database
+    * @return added or updated {@link Emp} instance
+    * @throws SystemException
+    * @throws PortalException
+    * @author sanjib maharjan
+    */
+    public com.lftechnology.sbwbtraining.userapplication.model.Emp addUpdateEmployee(
+        com.lftechnology.sbwbtraining.userapplication.model.Emp employee)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException;
+
+    /**
+    * This method removes all {@link Emp} instances that matches with the
+    * provided id as parameter from the databases.
+    *
+    * @param userId
+    the identification of the employee to delete.
+    * @return delete employee{@link Emp}
+    * @throws SystemException
+    * @throws PortalException
+    * @author sanjib maharjan
+    */
+    public com.lftechnology.sbwbtraining.userapplication.model.Emp deleteEmployeeById(
+        long userId)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException;
 }
