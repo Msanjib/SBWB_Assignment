@@ -273,6 +273,11 @@ public class EmpLocalServiceUtil {
         return getService().addUpdateEmp(moUser);
     }
 
+    public static java.util.List<com.lftechnology.sbwbtraining.userapplication.model.Emp> getAllEmployees()
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getService().getAllEmployees();
+    }
+
     public static void clearService() {
         _service = null;
     }

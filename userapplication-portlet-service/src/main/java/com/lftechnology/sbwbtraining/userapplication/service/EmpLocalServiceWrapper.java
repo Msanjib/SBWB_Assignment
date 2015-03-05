@@ -266,6 +266,11 @@ public class EmpLocalServiceWrapper implements EmpLocalService,
         return _empLocalService.addUpdateEmp(moUser);
     }
 
+    public java.util.List<com.lftechnology.sbwbtraining.userapplication.model.Emp> getAllEmployees()
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return _empLocalService.getAllEmployees();
+    }
+
     /**
      * @deprecated Renamed to {@link #getWrappedService}
      */

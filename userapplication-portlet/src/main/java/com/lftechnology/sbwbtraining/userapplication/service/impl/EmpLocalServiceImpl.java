@@ -1,8 +1,15 @@
 package com.lftechnology.sbwbtraining.userapplication.service.impl;
 
+import java.util.List;
+
 import com.lftechnology.sbwbtraining.userapplication.model.Emp;
 import com.lftechnology.sbwbtraining.userapplication.service.EmpLocalServiceUtil;
 import com.lftechnology.sbwbtraining.userapplication.service.base.EmpLocalServiceBaseImpl;
+import com.liferay.portal.kernel.dao.orm.Criterion;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.OrderFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 
@@ -46,5 +53,22 @@ public class EmpLocalServiceImpl extends EmpLocalServiceBaseImpl {
 		user.setGroupId(moUser.getGroupId());
 		user.setCompanyId(moUser.getCompanyId());
 		return empPersistence.update(user, true);
+	}
+	public List<Emp> getAllEmployees() throws SystemException {
+		List<Emp> user = empPersistence.findAll();
+		return user;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Emp> searchEmployees(String search) throws SystemException {
+		//Emp user;
+		//user = EmpLocalServiceUtil.getEmp(moUser.getUserId());
+		DynamicQuery query2 =
+				DynamicQueryFactoryUtil.forClass(Emp.class).add(PropertyFactoryUtil.forName("firstName").eq(new String(search)))
+						.add((Criterion) ((DynamicQuery) PropertyFactoryUtil.forName("lastName").eq(new String(search))).addOrder(OrderFactoryUtil.asc("lastName")));
+				@SuppressWarnings("rawtypes")
+				List results = EmpLocalServiceUtil.dynamicQuery(query2);
+						//PropertyFactoryUtil.forName(TransactionConstants.TXN_DESCRIPTION).like("%" + search + "%")));
+				return results;
 	}
 }

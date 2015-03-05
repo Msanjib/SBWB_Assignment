@@ -5,8 +5,26 @@
 	<portlet>
 		<portlet-name>userapplication</portlet-name>
 		<icon>/icon.png</icon>
+		<header-portlet-css>/css/ui.jqgrid.css</header-portlet-css>
+		<header-portlet-css>/css/jquery-ui.css</header-portlet-css>
 		<header-portlet-css>/css/main.css</header-portlet-css>
-		<footer-portlet-javascript>/js/main.js</footer-portlet-javascript>
+		<header-portlet-javascript>
+			/js/jquery-1.11.0.min.js
+		</header-portlet-javascript>
+		<header-portlet-javascript>
+			/js/jquery-validate.js
+		</header-portlet-javascript>
+		<header-portlet-javascript>
+			/js/jquery.jqGrid.src.js
+		</header-portlet-javascript>
+
+		<header-portlet-javascript>
+			/js/i18n/grid.locale-en.js
+		</header-portlet-javascript>
+
+		<footer-portlet-javascript>
+			/js/main.js
+		</footer-portlet-javascript>
 	</portlet>
 	<role-mapper>
 		<role-name>administrator</role-name>

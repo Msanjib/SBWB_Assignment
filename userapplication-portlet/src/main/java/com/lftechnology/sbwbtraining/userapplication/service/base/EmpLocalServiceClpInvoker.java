@@ -44,6 +44,8 @@ public class EmpLocalServiceClpInvoker {
     private String[] _methodParameterTypes39;
     private String _methodName44;
     private String[] _methodParameterTypes44;
+    private String _methodName45;
+    private String[] _methodParameterTypes45;
 
     public EmpLocalServiceClpInvoker() {
         _methodName0 = "addEmp";
@@ -141,6 +143,10 @@ public class EmpLocalServiceClpInvoker {
         _methodParameterTypes44 = new String[] {
                 "com.lftechnology.sbwbtraining.userapplication.model.Emp"
             };
+
+        _methodName45 = "getAllEmployees";
+
+        _methodParameterTypes45 = new String[] {  };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -247,6 +253,11 @@ public class EmpLocalServiceClpInvoker {
         if (_methodName44.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes44, parameterTypes)) {
             return EmpLocalServiceUtil.addUpdateEmp((com.lftechnology.sbwbtraining.userapplication.model.Emp) arguments[0]);
+        }
+
+        if (_methodName45.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes45, parameterTypes)) {
+            return EmpLocalServiceUtil.getAllEmployees();
         }
 
         throw new UnsupportedOperationException();
