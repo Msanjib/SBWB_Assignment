@@ -247,4 +247,12 @@ public interface EmpLocalService extends BaseLocalService, InvokableLocalService
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public java.util.List<com.lftechnology.sbwbtraining.userapplication.model.Emp> getAllEmployees()
         throws com.liferay.portal.kernel.exception.SystemException;
+
+    /**
+    * This method searches the string search in the data base to give out the search list
+    */
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public java.util.List<com.lftechnology.sbwbtraining.userapplication.model.Emp> searchEmployees(
+        java.lang.String search)
+        throws com.liferay.portal.kernel.exception.SystemException;
 }

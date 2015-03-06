@@ -272,6 +272,15 @@ public class EmpLocalServiceWrapper implements EmpLocalService,
     }
 
     /**
+    * This method searches the string search in the data base to give out the search list
+    */
+    public java.util.List<com.lftechnology.sbwbtraining.userapplication.model.Emp> searchEmployees(
+        java.lang.String search)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return _empLocalService.searchEmployees(search);
+    }
+
+    /**
      * @deprecated Renamed to {@link #getWrappedService}
      */
     public EmpLocalService getWrappedEmpLocalService() {

@@ -2,6 +2,7 @@ package com.lftechnology.sbwbtraining.userapplication.portlets;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -13,14 +14,19 @@ import javax.portlet.ResourceResponse;
 
 import com.lftechnology.sbwbtraining.userapplication.model.Emp;
 import com.lftechnology.sbwbtraining.userapplication.service.EmpLocalServiceUtil;
+import com.lftechnology.sbwbtraining.userapplication.service.persistence.EmpPersistence;
+import com.lftechnology.sbwbtraining.userapplication.service.persistence.EmpPersistenceImpl;
+import com.lftechnology.sbwbtraining.userapplication.portlets.ActionUtils;
 import com.liferay.portal.NoSuchAccountException;
 import com.liferay.portal.kernel.dao.orm.Criterion;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.OrderFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.portlet.PortletClassLoaderUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.util.PortalUtil;
@@ -34,14 +40,29 @@ public class EmpPortlet extends MVCPortlet {
 		System.out.println("inside view");
 		super.doView(renderRequest, renderResponse);
 	}
-
+	
 	@Override
 	public void serveResource(ResourceRequest resourceRequest,
 			ResourceResponse resourceResponse) throws IOException,
 			PortletException {
+		// TODO Auto-generated method stub
+		super.serveResource(resourceRequest, resourceResponse);
+	}
+	
+	public void getList(ActionRequest request, ActionResponse response)
+			throws IOException, PortletException, NoSuchAccountException,
+			PortalException {
+		System.out.println("inside getlist search");
 		try {
-			resourceResponse.getWriter()
-					.print(ActionUtils.getData().toString());
+			if (request.getParameter("search") == null) {
+				System.out.println("null value of search item");
+				List<Emp> objectList = EmpLocalServiceUtil.getAllEmployees();
+				writeJSON(request, response, ActionUtils.getData(objectList));
+			} else {
+				System.out.println("not a null value");
+				List<Emp> object = searchUser(request, response);
+				writeJSON(request, response, ActionUtils.getData(object));
+			}
 		} catch (SystemException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -111,29 +132,14 @@ public class EmpPortlet extends MVCPortlet {
 		EmpLocalServiceUtil.deleteEmp(userId);
 	}
 
-	public void searchUser(ActionRequest request, ActionResponse response)
+	public List<Emp> searchUser(ActionRequest request, ActionResponse response)
 			throws NoSuchAccountException, SystemException, PortalException {
-		//System.out.print(EmpLocalServiceUtil.s);
-		//long userId = ParamUtil.getLong(request, "userId");
-		//EmpLocalServiceUtil.deleteEmp(userId);
-		String search="bibhushan";
-		
-		
-		
-
-		
-		DynamicQuery query2 = DynamicQueryFactoryUtil
-				.forClass(Emp.class,Emp.class.getClassLoader())
-				.add(PropertyFactoryUtil.forName("firstName").eq(
-						new String(search)))
-				.add(PropertyFactoryUtil.forName(
-						"lastName").eq(new String(search)))
-						.addOrder(OrderFactoryUtil.asc("lastName"));
-		@SuppressWarnings("rawtypes")
-		List results = EmpLocalServiceUtil.dynamicQuery(query2);
-		// PropertyFactoryUtil.forName(TransactionConstants.TXN_DESCRIPTION).like("%"
-		// + search + "%")));
-		System.out.print(results);
+		System.out.print("inside search");
+		String searchItem = request.getParameter("search");
+		System.out.println(searchItem);
+		List<Emp> objectList = EmpLocalServiceUtil.searchEmployees(searchItem);
+		System.out.print("results:------->" + objectList);
+		// return objectList;
+		return objectList;
 	}
-
 }

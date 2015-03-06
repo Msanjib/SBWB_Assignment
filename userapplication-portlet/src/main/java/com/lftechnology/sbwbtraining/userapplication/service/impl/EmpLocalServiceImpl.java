@@ -10,6 +10,7 @@ import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.OrderFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 
@@ -58,17 +59,20 @@ public class EmpLocalServiceImpl extends EmpLocalServiceBaseImpl {
 		List<Emp> user = empPersistence.findAll();
 		return user;
 	}
-	
-	@SuppressWarnings("unchecked")
+	/**
+	 * This method searches the string search in the data base to give out the search list
+	 */
 	public List<Emp> searchEmployees(String search) throws SystemException {
-		//Emp user;
-		//user = EmpLocalServiceUtil.getEmp(moUser.getUserId());
-		DynamicQuery query2 =
-				DynamicQueryFactoryUtil.forClass(Emp.class).add(PropertyFactoryUtil.forName("firstName").eq(new String(search)))
-						.add((Criterion) ((DynamicQuery) PropertyFactoryUtil.forName("lastName").eq(new String(search))).addOrder(OrderFactoryUtil.asc("lastName")));
-				@SuppressWarnings("rawtypes")
-				List results = EmpLocalServiceUtil.dynamicQuery(query2);
-						//PropertyFactoryUtil.forName(TransactionConstants.TXN_DESCRIPTION).like("%" + search + "%")));
-				return results;
+		System.out.println("inside search emp local service:");
+		String searchTerm =new StringBuilder("%").append(search).append("%").toString();
+		DynamicQuery query2 = DynamicQueryFactoryUtil
+				.forClass(Emp.class);
+		Criterion criterion =  RestrictionsFactoryUtil.like("firstName",searchTerm);
+		criterion=RestrictionsFactoryUtil.or(criterion,RestrictionsFactoryUtil.like("lastName",searchTerm));
+		criterion=RestrictionsFactoryUtil.or(criterion,RestrictionsFactoryUtil.like("address",searchTerm));
+		query2.add(criterion);
+		@SuppressWarnings("unchecked")
+		List<Emp> results=EmpLocalServiceUtil.dynamicQuery(query2);
+		return results;
 	}
 }

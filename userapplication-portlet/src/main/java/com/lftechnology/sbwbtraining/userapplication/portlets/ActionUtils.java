@@ -10,8 +10,7 @@ import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 
 public class ActionUtils {
-	public static JSONObject getData() throws IOException, SystemException {
-		List<Emp> objectList = EmpLocalServiceUtil.getAllEmployees();
+	public static JSONObject getData(List<Emp> objectList) throws IOException, SystemException {
 		JSONObject recordsjsonObject = JSONFactoryUtil.createJSONObject();
 		JSONArray rowjsonObject = null;
 		JSONObject cell = null;

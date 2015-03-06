@@ -45,6 +45,8 @@ public class EmpLocalServiceClp implements EmpLocalService {
     private String[] _methodParameterTypes19;
     private String _methodName20;
     private String[] _methodParameterTypes20;
+    private String _methodName21;
+    private String[] _methodParameterTypes21;
 
     public EmpLocalServiceClp(InvokableLocalService invokableLocalService) {
         _invokableLocalService = invokableLocalService;
@@ -148,6 +150,10 @@ public class EmpLocalServiceClp implements EmpLocalService {
         _methodName20 = "getAllEmployees";
 
         _methodParameterTypes20 = new String[] {  };
+
+        _methodName21 = "searchEmployees";
+
+        _methodParameterTypes21 = new String[] { "java.lang.String" };
     }
 
     public com.lftechnology.sbwbtraining.userapplication.model.Emp addEmp(
@@ -679,6 +685,33 @@ public class EmpLocalServiceClp implements EmpLocalService {
         try {
             returnObj = _invokableLocalService.invokeMethod(_methodName20,
                     _methodParameterTypes20, new Object[] {  });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (java.util.List<com.lftechnology.sbwbtraining.userapplication.model.Emp>) ClpSerializer.translateOutput(returnObj);
+    }
+
+    public java.util.List<com.lftechnology.sbwbtraining.userapplication.model.Emp> searchEmployees(
+        java.lang.String search)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableLocalService.invokeMethod(_methodName21,
+                    _methodParameterTypes21,
+                    new Object[] { ClpSerializer.translateInput(search) });
         } catch (Throwable t) {
             t = ClpSerializer.translateThrowable(t);
 
