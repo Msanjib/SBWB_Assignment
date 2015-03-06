@@ -5,6 +5,12 @@ import java.util.List;
 import com.lftechnology.sbwbtraining.userapplication.model.Emp;
 import com.lftechnology.sbwbtraining.userapplication.service.EmpLocalServiceUtil;
 import com.lftechnology.sbwbtraining.userapplication.service.base.EmpLocalServiceBaseImpl;
+import com.liferay.portal.kernel.dao.orm.Criterion;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.OrderFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 
@@ -28,31 +34,6 @@ import com.liferay.portal.kernel.exception.SystemException;
  * @see com.lftechnology.sbwbtraining.userapplication.service.EmpLocalServiceUtil
  */
 public class EmpLocalServiceImpl extends EmpLocalServiceBaseImpl {
-	/**
-	 * Method use to add or udpate MOUser
-	 * 
-	 * @author bibhushan
-	 */
-	public Emp addUpdateEmp(Emp moUser) throws SystemException, PortalException {
-		Emp user;
-		if (moUser.getUserId() == 0) {
-			// Case: create new
-			user = empPersistence.create(counterLocalService
-					.increment(Emp.class.getName()));
-		} else {
-			// Case: Edit
-			user = EmpLocalServiceUtil.getEmp(moUser.getUserId());
-		}
-		user.setFirstName(moUser.getFirstName());
-		user.setLastName(moUser.getLastName());
-		user.setAddress(moUser.getAddress());
-		user.setEmail(moUser.getEmail());
-		user.setPhoneNumber(moUser.getPhoneNumber());
-		user.setCompanyName(moUser.getCompanyName());
-		user.setGroupId(moUser.getGroupId());
-		user.setCompanyId(moUser.getCompanyId());
-		return empPersistence.update(user, true);
-	}
 
 	/**
 	 * This methods retrives all the {@link Emp} instances stored in the database.
@@ -89,7 +70,6 @@ public class EmpLocalServiceImpl extends EmpLocalServiceBaseImpl {
 			employee_temp.setCompanyName(employee.getCompanyName());
 			employee_temp.setCompanyId(employee.getCompanyId());
 			employee_temp.setGroupId(employee.getGroupId());
-
 		} else {
 			// Case: Edit
 			System.out.println("Successfully edited Confirmed");
@@ -120,5 +100,21 @@ public class EmpLocalServiceImpl extends EmpLocalServiceBaseImpl {
 			PortalException {
 		Emp employee = empPersistence.findByPrimaryKey(userId);
 		return deleteEmp(employee);
+
+	/**
+	 * This method searches the string search in the data base to give out the search list
+	 */
+	public List<Emp> searchEmployees(String search) throws SystemException {
+		System.out.println("inside search emp local service:");
+		String searchTerm =new StringBuilder("%").append(search).append("%").toString();
+		DynamicQuery query2 = DynamicQueryFactoryUtil
+				.forClass(Emp.class);
+		Criterion criterion =  RestrictionsFactoryUtil.like("firstName",searchTerm);
+		criterion=RestrictionsFactoryUtil.or(criterion,RestrictionsFactoryUtil.like("lastName",searchTerm));
+		criterion=RestrictionsFactoryUtil.or(criterion,RestrictionsFactoryUtil.like("address",searchTerm));
+		query2.add(criterion);
+		@SuppressWarnings("unchecked")
+		List<Emp> results=EmpLocalServiceUtil.dynamicQuery(query2);
+		return results;
 	}
 }

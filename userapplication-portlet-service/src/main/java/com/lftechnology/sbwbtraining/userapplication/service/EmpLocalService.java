@@ -234,15 +234,6 @@ public interface EmpLocalService extends BaseLocalService, InvokableLocalService
         java.lang.String[] parameterTypes, java.lang.Object[] arguments)
         throws java.lang.Throwable;
 
-    /**
-    * Method use to add or udpate MOUser
-    *
-    * @author bibhushan
-    */
-    public com.lftechnology.sbwbtraining.userapplication.model.Emp addUpdateEmp(
-        com.lftechnology.sbwbtraining.userapplication.model.Emp moUser)
-        throws com.liferay.portal.kernel.exception.PortalException,
-            com.liferay.portal.kernel.exception.SystemException;
 
     /**
     * This methods retrives all the {@link Emp} instances stored in the database.
@@ -288,4 +279,15 @@ public interface EmpLocalService extends BaseLocalService, InvokableLocalService
         long userId)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException;
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public java.util.List<com.lftechnology.sbwbtraining.userapplication.model.Emp> getAllEmployees()
+        throws com.liferay.portal.kernel.exception.SystemException;
+
+    /**
+    * This method searches the string search in the data base to give out the search list
+    */
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public java.util.List<com.lftechnology.sbwbtraining.userapplication.model.Emp> searchEmployees(
+        java.lang.String search)
+        throws com.liferay.portal.kernel.exception.SystemException;
 }

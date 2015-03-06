@@ -266,6 +266,20 @@ public class EmpLocalServiceWrapper implements EmpLocalService,
         return _empLocalService.addUpdateEmp(moUser);
     }
 
+    public java.util.List<com.lftechnology.sbwbtraining.userapplication.model.Emp> getAllEmployees()
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return _empLocalService.getAllEmployees();
+    }
+
+    /**
+    * This method searches the string search in the data base to give out the search list
+    */
+    public java.util.List<com.lftechnology.sbwbtraining.userapplication.model.Emp> searchEmployees(
+        java.lang.String search)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return _empLocalService.searchEmployees(search);
+    }
+
     /**
     * This methods retrives all the {@link Emp} instances stored in the database.
     *

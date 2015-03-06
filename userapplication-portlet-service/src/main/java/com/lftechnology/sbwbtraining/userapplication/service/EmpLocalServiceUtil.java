@@ -321,6 +321,18 @@ public class EmpLocalServiceUtil {
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {
         return getService().deleteEmployeeById(userId);
+    public static java.util.List<com.lftechnology.sbwbtraining.userapplication.model.Emp> getAllEmployees()
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getService().getAllEmployees();
+    }
+
+    /**
+    * This method searches the string search in the data base to give out the search list
+    */
+    public static java.util.List<com.lftechnology.sbwbtraining.userapplication.model.Emp> searchEmployees(
+        java.lang.String search)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getService().searchEmployees(search);
     }
 
     public static void clearService() {

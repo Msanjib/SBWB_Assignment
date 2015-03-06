@@ -162,6 +162,13 @@ public class EmpLocalServiceClp implements EmpLocalService {
         _methodName22 = "deleteEmployeeById";
 
         _methodParameterTypes22 = new String[] { "long" };
+        _methodName20 = "getAllEmployees";
+
+        _methodParameterTypes20 = new String[] {  };
+
+        _methodName21 = "searchEmployees";
+
+        _methodParameterTypes21 = new String[] { "java.lang.String" };
     }
 
     public com.lftechnology.sbwbtraining.userapplication.model.Emp addEmp(
@@ -687,6 +694,7 @@ public class EmpLocalServiceClp implements EmpLocalService {
     }
 
     public java.util.List<com.lftechnology.sbwbtraining.userapplication.model.Emp> getEveryEmployee()
+    public java.util.List<com.lftechnology.sbwbtraining.userapplication.model.Emp> getAllEmployees()
         throws com.liferay.portal.kernel.exception.SystemException {
         Object returnObj = null;
 
@@ -715,6 +723,9 @@ public class EmpLocalServiceClp implements EmpLocalService {
         com.lftechnology.sbwbtraining.userapplication.model.Emp employee)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {
+    public java.util.List<com.lftechnology.sbwbtraining.userapplication.model.Emp> searchEmployees(
+        java.lang.String search)
+        throws com.liferay.portal.kernel.exception.SystemException {
         Object returnObj = null;
 
         try {
@@ -759,6 +770,10 @@ public class EmpLocalServiceClp implements EmpLocalService {
                 throw (com.liferay.portal.kernel.exception.PortalException) t;
             }
 
+                    new Object[] { ClpSerializer.translateInput(search) });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
             if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
                 throw (com.liferay.portal.kernel.exception.SystemException) t;
             }
@@ -772,5 +787,6 @@ public class EmpLocalServiceClp implements EmpLocalService {
         }
 
         return (com.lftechnology.sbwbtraining.userapplication.model.Emp) ClpSerializer.translateOutput(returnObj);
+        return (java.util.List<com.lftechnology.sbwbtraining.userapplication.model.Emp>) ClpSerializer.translateOutput(returnObj);
     }
 }
