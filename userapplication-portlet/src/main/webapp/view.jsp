@@ -11,21 +11,19 @@
 <portlet:actionURL name="addUser" var="addUserURL" />
 <portlet:actionURL name="addUser" var="updateUserURL" />
 <portlet:actionURL name="getList" var="getListURL" />
-<portlet:resourceURL var="serve"></portlet:resourceURL>
 <portlet:resourceURL var="view"></portlet:resourceURL>
 <portlet:defineObjects />
 <script>
-	function search(){
-	var urlNew='${getListURL}'+"&search="+$("#search").val();
-	 jQuery("#jqGrid").setGridParam({rowNum:10,datatype:"json",url: urlNew}).trigger('reloadGrid')
-} 				
-	
-	</script>
-	<input type="text" name="searchItem" id="search"/>
- <button onclick="search()">Click me</button> 
+	function search() {
+		var urlNew = '${getListURL}' + "&search=" + $("#search").val();
+		jQuery("#jqGridEmp").setGridParam({
+			rowNum : 10,
+			datatype : "json",
+			url : urlNew
+		}).trigger('reloadGrid')
+	}
+</script>
 
-
-<a href="<%=getListURL.toString()%>"> sdlfjlsjdf</a>
 <div class="add-employee">
 	<form action="<%=addUserURL.toString()%>" method="post"
 		id="register-form" class="clearfix">
@@ -53,24 +51,23 @@
 		<h1>
 			<strong>Employee.</strong>
 		</h1>
-
-		<form action="${addDepartment}" method="post" class="cfix">
-			<input type="text" name="departmentName" placeholder="Search By Name." size="45" /> <input
-				type="submit" />
-		</form>
+		<!-- search input box to find the employees -->
+		<div class="cfix">
+			<input type="text" name="searchItem" placeholder="search" onclick="search()" onKeyDown="if(event.keyCode==13) search();"  id="search" />
+		</div>
 	</div>
-	
+
 	<div class="slider-wrapper cfix" id="slideWrap">
-		<button id ="hideInfo" class="hide-info">Hide</button>
-		<img alt="hjkk" src="${pageContext.request.contextPath}/images/user.png">
+		<button id="hideInfo" class="hide-info">Hide</button>
+		<img alt="hjkk"
+			src="${pageContext.request.contextPath}/images/user.png">
 		<form action="${userInfoURL}" method="post" id="revealUser">
-			<label id="fnameLabel">Sanjib</label> 
-			<label id="lnameLabel" class="bold-label">Maharjan</label> 
-			<label id="addLabel">Lalitpur</label> 
-			<label id="phoneLabel">909090909</label> 
-			<label id="emailLabel" class="light-label">cshanjib@gmail.com</label> 
-			<input type="hidden" id="idSelected" name="idSelected" value="initial" />
-			<input type="submit" value="show More" />
+			<label id="fnameLabel">Sanjib</label> <label id="lnameLabel"
+				class="bold-label">Maharjan</label> <label id="addLabel">Lalitpur</label>
+			<label id="phoneLabel">909090909</label> <label id="emailLabel"
+				class="light-label">cshanjib@gmail.com</label> <input type="hidden"
+				id="idSelected" name="idSelected" value="initial" /> <input
+				type="submit" value="show More" />
 		</form>
 
 	</div>
@@ -100,25 +97,28 @@
 						$('#idSelected').val(id);
 						//$("#revealUser").submit();
 						$.ajax({
-						        type: 'POST',
-						        url: '${showUserInfo}',
-						        data: {uid:id},
-						        dataType: 'json',
-						        success: function (result) {
-						        	
-						        	$('#fnameLabel').text(result.firstName);
-						        	$('#lnameLabel').text(result.lastName);
-						        	$('#addLabel').text(result.address);
-						        	$('#phoneLabel').text(result.phoneNumber);
-						        	$('#emailLabel').text(result.email);
-						        	$("#slideWrap").show(1000);
-						            console.log("ajax call complete "+result.firstName);
-						           // window.location.href='${userInfoURL}';
-						        },
-						        error: function (result) {
-						            console.log("ajax call error complete");
-						        }
-						    }); 
+							type : 'POST',
+							url : '${showUserInfo}',
+							data : {
+								uid : id
+							},
+							dataType : 'json',
+							success : function(result) {
+
+								$('#fnameLabel').text(result.firstName);
+								$('#lnameLabel').text(result.lastName);
+								$('#addLabel').text(result.address);
+								$('#phoneLabel').text(result.phoneNumber);
+								$('#emailLabel').text(result.email);
+								$("#slideWrap").show(1000);
+								console.log("ajax call complete "
+										+ result.firstName);
+								// window.location.href='${userInfoURL}';
+							},
+							error : function(result) {
+								console.log("ajax call error complete");
+							}
+						});
 
 					}
 					//jQuery(this).editRow(id, true); 
@@ -132,7 +132,7 @@
 				colModel : [ {
 					name : 'userId',
 					index : 'userId',
-					width : 30,
+					width : 60,
 					align : "center",
 					sorttype : "int",
 					key : true
@@ -227,7 +227,7 @@
 	function getSelectedId() {
 		return $('#hiddenField').val();
 	}
-	$("#hideInfo").click(function(){
+	$("#hideInfo").click(function() {
 		$("#slideWrap").hide(1000);
 	});
 </script>

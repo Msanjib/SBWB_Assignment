@@ -353,7 +353,7 @@ h1.add-title {
 }
 
 .add-employee form h1 {
-	background: #2A88AD;
+	background: #545456;
 	padding: 20px 30px 15px 30px;
 	margin: -30px -30px 30px -30px;
 	border-radius: 10px 10px 0 0;
@@ -377,15 +377,14 @@ h1.add-title {
 .add-employee form label {
 	display: block;
 	font: normal 20px Arial, Helvetica, sans-serif;
-	color: #2A88AD;
+	color: #6e6e70;
 	margin-bottom: 5px;
 }
 
 .add-employee form input[type="text"], .add-employee form input[type="email"],
 	.add-employee form input[type="number"], .add-employee form input[type="search"],
 	.add-employee form input[type="time"], .add-employee form input[type="url"],
-	.add-employee form input[type="password"], .add-employee form textarea,
-	.add-employee form select {
+	.add-employee form textarea, .add-employee form select {
 	background: #fff;
 	display: block;
 	box-sizing: border-box;
@@ -413,7 +412,7 @@ h1.add-title {
 	{
 	float: right;
 	margin-top: 10px;
-	background: #2A88AD;
+	background: #545456;
 	padding: 8px 20px 8px 20px;
 	border-radius: 5px;
 	-webkit-border-radius: 5px;
@@ -439,6 +438,23 @@ h1.add-title {
 /*table css*/
 .add-employee table {
 	background: red;
+}
+
+/*employee search*/
+.cfix input {
+	float: right;
+	width: 120px;
+	padding: 5px !important;
+	margin: 0 auto !important;
+	margin-bottom: 15px;
+	background: #f8f8f8;
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.13);
+	-moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.13);
+	-webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.13);
+	clear: both;
 }
 
 /*clearfix*/

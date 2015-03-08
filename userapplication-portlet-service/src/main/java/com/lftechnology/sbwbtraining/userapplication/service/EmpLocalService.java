@@ -234,18 +234,6 @@ public interface EmpLocalService extends BaseLocalService, InvokableLocalService
         java.lang.String[] parameterTypes, java.lang.Object[] arguments)
         throws java.lang.Throwable;
 
-
-    /**
-    * This methods retrives all the {@link Emp} instances stored in the database.
-    *
-    * @return the list of {@link Emp} instances
-    * @throws SystemException
-    * @author sanjib maharjan
-    */
-    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public java.util.List<com.lftechnology.sbwbtraining.userapplication.model.Emp> getEveryEmployee()
-        throws com.liferay.portal.kernel.exception.SystemException;
-
     /**
     * This method adds or updates the given model of {@link Emp} to the
     * database. The addition or update depends on the identification stored in
@@ -259,35 +247,22 @@ public interface EmpLocalService extends BaseLocalService, InvokableLocalService
     * @throws PortalException
     * @author sanjib maharjan
     */
-    public com.lftechnology.sbwbtraining.userapplication.model.Emp addUpdateEmployee(
+    public com.lftechnology.sbwbtraining.userapplication.model.Emp addUpdateEmp(
         com.lftechnology.sbwbtraining.userapplication.model.Emp employee)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException;
 
     /**
-    * This method removes all {@link Emp} instances that matches with the
-    * provided id as parameter from the databases.
-    *
-    * @param userId
-    the identification of the employee to delete.
-    * @return delete employee{@link Emp}
-    * @throws SystemException
-    * @throws PortalException
-    * @author sanjib maharjan
-    */
-    public com.lftechnology.sbwbtraining.userapplication.model.Emp deleteEmployeeById(
-        long userId)
-        throws com.liferay.portal.kernel.exception.PortalException,
-            com.liferay.portal.kernel.exception.SystemException;
-    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public java.util.List<com.lftechnology.sbwbtraining.userapplication.model.Emp> getAllEmployees()
-        throws com.liferay.portal.kernel.exception.SystemException;
-
-    /**
     * This method searches the string search in the data base to give out the search list
+    *
+    * @author bibhushan
     */
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public java.util.List<com.lftechnology.sbwbtraining.userapplication.model.Emp> searchEmployees(
         java.lang.String search)
+        throws com.liferay.portal.kernel.exception.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public java.util.List<com.lftechnology.sbwbtraining.userapplication.model.Emp> getAllEmployees()
         throws com.liferay.portal.kernel.exception.SystemException;
 }

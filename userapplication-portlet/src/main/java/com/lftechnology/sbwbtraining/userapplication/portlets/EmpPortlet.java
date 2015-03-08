@@ -2,7 +2,7 @@ package com.lftechnology.sbwbtraining.userapplication.portlets;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Logger;
+
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
@@ -10,23 +10,15 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
+
 import com.lftechnology.sbwbtraining.userapplication.model.Emp;
 import com.lftechnology.sbwbtraining.userapplication.service.EmpLocalServiceUtil;
-import com.lftechnology.sbwbtraining.userapplication.service.persistence.EmpPersistence;
-import com.lftechnology.sbwbtraining.userapplication.service.persistence.EmpPersistenceImpl;
 import com.lftechnology.sbwbtraining.userapplication.portlets.ActionUtils;
 import com.liferay.portal.NoSuchAccountException;
-import com.liferay.portal.kernel.dao.orm.Criterion;
-import com.liferay.portal.kernel.dao.orm.DynamicQuery;
-import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
-import com.liferay.portal.kernel.dao.orm.OrderFactoryUtil;
-import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
-import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.kernel.portlet.PortletClassLoaderUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
@@ -48,11 +40,11 @@ public class EmpPortlet extends MVCPortlet {
 			if (request.getParameter("search") == null) {
 				System.out.println("null value of search item");
 				List<Emp> objectList = EmpLocalServiceUtil.getAllEmployees();
-				writeJSON(request, response, ActionUtils.getData(objectList));
+				writeJSON(request, response, ActionUtils.getAllEmployeeAsJson(objectList));
 			} else {
 				System.out.println("not a null value");
 				List<Emp> object = searchUser(request, response);
-				writeJSON(request, response, ActionUtils.getData(object));
+				writeJSON(request, response, ActionUtils.getAllEmployeeAsJson(object));
 			}
 		} catch (SystemException e) {
 			// TODO Auto-generated catch block
@@ -134,9 +126,6 @@ public class EmpPortlet extends MVCPortlet {
 		return objectList;
 	}
 	
-	
-	
-	
 	@Override
 	public void serveResource(ResourceRequest resourceRequest,
 			ResourceResponse resourceResponse) throws IOException,
@@ -149,7 +138,8 @@ public class EmpPortlet extends MVCPortlet {
 				employee = EmpLocalServiceUtil.getEmp(Long
 						.parseLong(uid));
 				if (employee != null) {
-					resourceResponse.getWriter().print(ActionUtils.convertUsersDataToJson(employee));
+					//List<Emp> objectList = EmpLocalServiceUtil.searchEmployees(searchItem);
+					//resourceResponse.getWriter().print(ActionUtils.convertUsersDataToJson(objectList));
 				}
 			} catch (NumberFormatException e) {
 				// TODO Auto-generated catch block
@@ -167,8 +157,9 @@ public class EmpPortlet extends MVCPortlet {
 			// resourceRequest.setRenderParameter("jspPage", "/view.jsp");
 		} else {
 			try {
+				List<Emp> objectList = EmpLocalServiceUtil.getAllEmployees();
 				resourceResponse.getWriter().print(
-						ActionUtils.getAllEmployeeAsJson().toString());
+						ActionUtils.getAllEmployeeAsJson(objectList).toString());
 			} catch (SystemException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -181,9 +172,6 @@ public class EmpPortlet extends MVCPortlet {
 		System.out.println("update called");
 	}
 
-	public void addUser(ActionRequest req, ActionResponse res) {
-		System.out.println("delete called");
-	}
 	public void goToUserInfo(ActionRequest req, ActionResponse res) {
 		String uid = req.getParameter("idSelected");
 		if (uid != null) {
@@ -243,7 +231,7 @@ public class EmpPortlet extends MVCPortlet {
 			employee.setEmail(email);
 			employee.setUserId(Long.parseLong(sbwbUserId));
 			try {
-				EmpLocalServiceUtil.addUpdateEmployee(employee);
+				EmpLocalServiceUtil.addUpdateEmp(employee);
 			} catch (PortalException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -255,8 +243,8 @@ public class EmpPortlet extends MVCPortlet {
 			sbwbUserId = req.getParameter("id");
 			if (Validator.isNotNull(sbwbUserId)) {
 				try {
-					EmpLocalServiceUtil.deleteEmployeeById(Long
-							.parseLong(sbwbUserId));
+					EmpLocalServiceUtil.deleteEmp(Long.parseLong(sbwbUserId));
+					//deleteEmployeeById(Long.parseLong(sbwbUserId));
 				} catch (NumberFormatException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -271,34 +259,5 @@ public class EmpPortlet extends MVCPortlet {
 				System.out.println("Delete Unsuccessful");
 			}
 		}
-
-		// product.setProductId(Long.parseLong(productId));
-		// product.setProductName(productName);
-		// product.setSerialNumber(productSerial);
-		// product.setCompanyId(PortalUtil.getCompanyId(request));
-		// PortalUtil.getUserId(request);
-		// try {
-		// product.setGroupId(GroupLocalServiceUtil.getCompanyGroup(
-		// PortalUtil.getCompanyId(request)).getGroupId());
-		// } catch (PortalException e1) {
-		// e1.printStackTrace();
-		// } catch (SystemException e1) {
-		// e1.printStackTrace();
-		// }
-		// ArrayList<String> errors = new ArrayList<String>();
-		// if (ProdRegValidator.validateProduct(product, errors)) {
-		// try {
-		// PRProductLocalServiceUtil.addUpdatePRProduct(product,
-		// themeDisplay.getUserId());
-		// } catch (PortalException | SystemException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		// SessionMessages.add(request, "request_processed",
-		// "product-updated-successfully");
-		// } else {
-		// SessionErrors.add(request, "fields-required");
-		// }
-
 	}
 }

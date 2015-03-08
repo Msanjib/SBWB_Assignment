@@ -419,8 +419,7 @@ public class EmpWrapper implements Emp, ModelWrapper<Emp> {
         return new EmpWrapper((Emp) _emp.clone());
     }
 
-    public int compareTo(
-        com.lftechnology.sbwbtraining.userapplication.model.Emp emp) {
+    public int compareTo(Emp emp) {
         return _emp.compareTo(emp);
     }
 
@@ -429,15 +428,15 @@ public class EmpWrapper implements Emp, ModelWrapper<Emp> {
         return _emp.hashCode();
     }
 
-    public com.liferay.portal.model.CacheModel<com.lftechnology.sbwbtraining.userapplication.model.Emp> toCacheModel() {
+    public com.liferay.portal.model.CacheModel<Emp> toCacheModel() {
         return _emp.toCacheModel();
     }
 
-    public com.lftechnology.sbwbtraining.userapplication.model.Emp toEscapedModel() {
+    public Emp toEscapedModel() {
         return new EmpWrapper(_emp.toEscapedModel());
     }
 
-    public com.lftechnology.sbwbtraining.userapplication.model.Emp toUnescapedModel() {
+    public Emp toUnescapedModel() {
         return new EmpWrapper(_emp.toUnescapedModel());
     }
 

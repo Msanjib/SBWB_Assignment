@@ -8,8 +8,6 @@ import com.lftechnology.sbwbtraining.userapplication.service.base.EmpLocalServic
 import com.liferay.portal.kernel.dao.orm.Criterion;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
-import com.liferay.portal.kernel.dao.orm.OrderFactoryUtil;
-import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -35,16 +33,6 @@ import com.liferay.portal.kernel.exception.SystemException;
  */
 public class EmpLocalServiceImpl extends EmpLocalServiceBaseImpl {
 
-	/**
-	 * This methods retrives all the {@link Emp} instances stored in the database.
-	 * 
-	 * @return the list of {@link Emp} instances
-	 * @throws SystemException
-	 * @author sanjib maharjan
-	 */
-	public List<Emp> getEveryEmployee() throws SystemException {
-		return empPersistence.findAll();
-	}
 
 	/**
 	 * This method adds or updates the given model of {@link Emp} to the
@@ -59,7 +47,7 @@ public class EmpLocalServiceImpl extends EmpLocalServiceBaseImpl {
 	 * @throws PortalException
 	 * @author sanjib maharjan
 	 */
-	public Emp addUpdateEmployee(Emp employee) throws SystemException,
+	public Emp addUpdateEmp(Emp employee) throws SystemException,
 			PortalException {
 		Emp employee_temp;
 		if (employee.getUserId() == 0) {
@@ -86,29 +74,13 @@ public class EmpLocalServiceImpl extends EmpLocalServiceBaseImpl {
 	}
 
 	/**
-	 * This method removes all {@link Emp} instances that matches with the
-	 * provided id as parameter from the databases.
-	 * 
-	 * @param userId
-	 *            the identification of the employee to delete.
-	 * @return delete employee{@link Emp}
-	 * @throws SystemException
-	 * @throws PortalException
-	 * @author sanjib maharjan
-	 */
-	public Emp deleteEmployeeById(long userId) throws SystemException,
-			PortalException {
-		Emp employee = empPersistence.findByPrimaryKey(userId);
-		return deleteEmp(employee);
-
-	/**
 	 * This method searches the string search in the data base to give out the search list
+	 *@author bibhushan
 	 */
 	public List<Emp> searchEmployees(String search) throws SystemException {
 		System.out.println("inside search emp local service:");
 		String searchTerm =new StringBuilder("%").append(search).append("%").toString();
-		DynamicQuery query2 = DynamicQueryFactoryUtil
-				.forClass(Emp.class);
+		DynamicQuery query2 = DynamicQueryFactoryUtil.forClass(Emp.class);
 		Criterion criterion =  RestrictionsFactoryUtil.like("firstName",searchTerm);
 		criterion=RestrictionsFactoryUtil.or(criterion,RestrictionsFactoryUtil.like("lastName",searchTerm));
 		criterion=RestrictionsFactoryUtil.or(criterion,RestrictionsFactoryUtil.like("address",searchTerm));
@@ -116,5 +88,9 @@ public class EmpLocalServiceImpl extends EmpLocalServiceBaseImpl {
 		@SuppressWarnings("unchecked")
 		List<Emp> results=EmpLocalServiceUtil.dynamicQuery(query2);
 		return results;
+	}
+
+	public List<Emp> getAllEmployees() throws SystemException {
+		return empPersistence.findAll();
 	}
 }
