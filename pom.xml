@@ -46,8 +46,8 @@
 	</build>
 	
 	<modules>
-		<module>department-management-portlet</module>
-		<module>department-management-portlet-service</module>
+		<module>division-portlet</module>
+		<module>division-portlet-service</module>
 		<module>userapplication-portlet</module>
 		<module>userapplication-portlet-service</module>
 	</modules>

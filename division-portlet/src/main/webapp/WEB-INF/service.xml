@@ -1,0 +1,27 @@
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.2.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_2_0.dtd">
+
+<service-builder package-path="com.lftechnology.sbwbtraining.division">
+	<author>Sanjib Maharjan</author>
+	<namespace>MO</namespace>
+	<entity name="Division" local-service="true" remote-service="true">
+		<column name="divisionId" type="long" primary="true" />
+		<column name="divisionName" type="String" />
+		<column name="createdBy" type="String" />
+		<column name="createdOn" type="String" />
+		<column name="companyId" type="long" />
+		<column name="groupId" type="long" />
+		<order by="asc">
+			<order-column name="divisionName" />
+		</order>
+		<finder name="G_DN" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column name="divisionName" />
+		</finder>
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId" />
+		</finder>
+		<finder name="CompanyId" return-type="Collection">
+			<finder-column name="companyId" />
+		</finder>
+	</entity>
+</service-builder>

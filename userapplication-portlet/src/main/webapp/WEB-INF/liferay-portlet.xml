@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
-<!DOCTYPE liferay-portlet-app PUBLIC "-//Liferay//DTD Portlet Application 6.2.0//EN" "http://www.liferay.com/dtd/liferay-portlet-app_6_2_0.dtd">
+<!DOCTYPE liferay-portlet-app PUBLIC "-//Liferay//DTD Portlet Application 6.1.0//EN" "http://www.liferay.com/dtd/liferay-portlet-app_6_1_0.dtd">
 
 <liferay-portlet-app>
 	<portlet>
 		<portlet-name>userapplication</portlet-name>
 		<icon>/icon.png</icon>
+
 		<use-default-template>false</use-default-template>
+		<header-portlet-css>/css/jquery.fancybox.css</header-portlet-css>
 		<header-portlet-css>/css/jquery-ui.css</header-portlet-css>
-		<header-portlet-css>/css/jquery-ui.theme.min.css</header-portlet-css>
 		<header-portlet-css>/css/ui.jqgrid.css</header-portlet-css>
-		
 		<header-portlet-css>/css/main.css</header-portlet-css>
 		<header-portlet-javascript>
 			/js/jquery-1.11.0.min.js
@@ -17,11 +17,11 @@
 		<header-portlet-javascript>
 			/js/jquery.jqGrid.src.js
 		</header-portlet-javascript>
-		
+
 		<header-portlet-javascript>
 			/js/i18n/grid.locale-en.js
 		</header-portlet-javascript>
-		
+		<header-portlet-javascript>/js/jquery.fancybox.js</header-portlet-javascript>
 		<footer-portlet-javascript>
 			/js/main.js
 		</footer-portlet-javascript>

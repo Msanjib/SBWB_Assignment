@@ -81,6 +81,7 @@ public class EmpLocalServiceImpl extends EmpLocalServiceBaseImpl {
 	public Emp addUpdateEmployee(Emp employee) throws SystemException,
 			PortalException {
 		Emp employee_temp;
+		boolean merge = true;
 		if (employee.getUserId() == 0) {
 			// Case: create new
 			employee_temp = empPersistence.create(counterLocalService
@@ -89,20 +90,21 @@ public class EmpLocalServiceImpl extends EmpLocalServiceBaseImpl {
 			employee_temp.setCompanyName(employee.getCompanyName());
 			employee_temp.setCompanyId(employee.getCompanyId());
 			employee_temp.setGroupId(employee.getGroupId());
-
+			merge=false;
 		} else {
 			// Case: Edit
-			System.out.println("Successfully edited Confirmed");
 			employee_temp = EmpLocalServiceUtil.getEmp(employee.getUserId());
 
 		}
+		employee_temp.setDepId(employee.getDepId());
+		employee_temp.setStatus(employee.getStatus());
 		employee_temp.setFirstName(employee.getFirstName());
 		employee_temp.setLastName(employee.getLastName());
 		employee_temp.setAddress(employee.getAddress());
 		employee_temp.setPhoneNumber(employee.getPhoneNumber());
 		employee_temp.setEmail(employee.getEmail());
 
-		return empPersistence.update(employee_temp, true);
+		return empPersistence.update(employee_temp, merge);
 	}
 
 	/**

@@ -6,6 +6,8 @@ import java.util.List;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
+import com.lftechnology.sbwbtraining.division.model.Division;
+import com.lftechnology.sbwbtraining.division.service.DivisionLocalServiceUtil;
 import com.lftechnology.sbwbtraining.userapplication.model.Emp;
 import com.lftechnology.sbwbtraining.userapplication.service.EmpLocalServiceUtil;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -31,7 +33,9 @@ public class ActionUtils {
 		List<Emp> objectList = EmpLocalServiceUtil.getEveryEmployee();
 		JSONObject recordsjsonObject = JSONFactoryUtil.createJSONObject();
 		JSONObject cellObject = null;
+		List<Division> departments = DivisionLocalServiceUtil.getEveryDivisions();
 		Emp entry = null;
+		String status = "Inactive";
 		JSONArray recordsjsonArray = JSONFactoryUtil.createJSONArray();
 		recordsjsonObject.put("page", "1");
 		double total_pages = Math.ceil(objectList.size() / 10.0);
@@ -50,6 +54,15 @@ public class ActionUtils {
 				cellObject.put("email", String.valueOf(entry.getEmail()));
 				cellObject.put("companyName",
 						String.valueOf(entry.getCompanyName()));
+				cellObject.put("departmentName",
+						String.valueOf(mapToDepartmentNameById(departments, entry.getDepId())));
+				if(entry.getStatus()){
+					status = "Active";
+				}else{
+					status = "Inactive";
+				}
+				cellObject.put("status",
+						status);
 				cellObject.put("companyId", String.valueOf(entry.getGroupId()));
 				cellObject.put("groupId", String.valueOf(entry.getGroupId()));
 				cellObject.put("userId", String.valueOf(entry.getUserId()));
@@ -59,6 +72,25 @@ public class ActionUtils {
 		}
 		return recordsjsonObject;
 
+	}
+	
+	public static String mapToDepartmentNameById(List<Division> departments, long depId){
+		String departmentName="Executive";
+		for(Division division : departments){
+			if(division.getDivisionId() == depId){
+				departmentName = division.getDivisionName();
+				break;
+			}
+		}
+		return departmentName;
+	}
+	
+	public static JSONObject getDepartmentsAsJson(List<Division> departments){
+		JSONObject departmentJson = JSONFactoryUtil.createJSONObject();
+		for(Division division : departments){
+			departmentJson.put(division.getDivisionId()+"", division.getDivisionName());
+		}
+		return departmentJson;
 	}
 
 	/**

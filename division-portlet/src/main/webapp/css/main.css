@@ -1,0 +1,142 @@
+.clear {
+	clear: both;
+}
+
+.form-wrapper {
+	background: #E2E2E2;
+	padding:20px 0px;
+}
+
+#myCarousel {
+	float: right;
+}
+.displayDep{
+	float: left;
+	height:100px;
+	width:649px;
+	background: #39393B;
+	font-size: 30px;
+	text-align: center;
+	line-height:100px;
+	font-family: Impact, Charcoal, sans-serif;
+	color: #ffffff;
+}
+.displayDepC{
+	background: #6E6E72;
+}
+
+.aui-carousel-item {
+	width: 300px;
+	text-align: center;
+	font-size: 30px;
+	line-height:100px;
+	font-weight: bold;
+	background: #DDDDDD;
+	color:#ffffff;
+	height: 100px;
+}
+
+.wrapper-add {
+	padding: 0px 35px;
+	float: right;
+}
+
+
+
+.wrapper-display {
+	margin-left:10px;
+	background: #EFEFEF;
+	padding: 5px;
+	float: left;
+}
+
+.wrapper-add form {
+	margin-top: 10px;
+}
+#labelErr{
+	color: #ff0000;
+}
+.wrapper-add form input{
+	display: block;
+}
+.wrapper-add form input[type='text'] {
+	border-radius: 8px;
+	padding:12px 5px;
+	background: #EEF0F2;
+}
+.wrapper-add form input[type='button'] {
+	border-radius: 10px;
+	padding:10px 30px;
+	font-weight:bolder;
+	background: #39393B;
+	text-shadow: none;
+	margin:20px 0px;
+	color: #ffffff;
+	border: none;
+}
+.wrapper-add form input[type='button']:hover {
+	background: #ffffff;
+	color: #39393B;
+	border: none;
+}
+
+h1.add-title {
+	font-size: 13px;
+	width:230px;
+	background: #66747E;
+	margin: 0;
+	margin-bottom: 20px;
+	padding: 5px 20px;
+	color: #ffffff;
+}
+
+table.ui-jqgrid-btable tr:first-child td {
+	
+}
+
+table.ui-jqgrid-btable tr:hover td {
+	background: #FF7448;
+}
+
+.evenTableRow {
+	background-color: #F2F1ED;
+	color: #000;
+	height: 35px;
+	border: 0px;
+}
+
+.evenTableRow td {
+	border: 0px;
+}
+
+.oddTableRow {
+	background-color: #E0E0E0;
+	color: #000;
+	height: 35px;
+	border: 0px;
+}
+
+.oddTableRow td {
+	border: 0px;
+}
+
+.cfix:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
+
+.cfix {
+	display: inline-block;
+}
+/* start commented backslash hack \*/
+* html .cfix {
+	height: 1%;
+}
+
+.cfix {
+	display: block;
+}
