@@ -33,16 +33,10 @@
 		<h1>
 			<strong>Employee.</strong>
 		</h1>
-
-		<form action="${addDepartment}" method="post" class="cfix">
-			<input type="text" name="departmentName"
-				placeholder="Search By Name." size="45" /> <input type="submit" />
-		</form>
-		<a href="#add_form" id="addNewEmp">Add New</a>
+		
 		<!-- search input box to find the employees -->
-		<div class="cfix">
-			<input type="text" name="searchItem" placeholder="search" onclick="search()" onKeyDown="if(event.keyCode==13) search();"  id="search" />
-		</div>
+		<input type="text" name="searchItem" placeholder="search" onclick="search()" onKeyDown="if(event.keyCode==13) search();"  id="search" />
+		<a href="#add_form" id="addNewEmp">Add New</a>
 	</div>
 
 	<div class="slider-wrapper cfix" id="slideWrap">
@@ -136,7 +130,7 @@
 	var lastSel = 1;
 	jQuery("#jqGridEmp").jqGrid(
 			{
-				url : '${serve}',
+				url : '${getListURL}',
 				editurl : '${editOrDeleteSBWBUsers}',
 				datatype : 'json',
 				edit : true,
