@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
-	<bean id="com.lftechnology.sbwbusers.service.EmployeeLocalService" class="com.lftechnology.sbwbusers.service.impl.EmployeeLocalServiceImpl" />
-	<bean id="com.lftechnology.sbwbusers.service.EmployeeService" class="com.lftechnology.sbwbusers.service.impl.EmployeeServiceImpl" />
-	<bean id="com.lftechnology.sbwbusers.service.persistence.EmployeePersistence" class="com.lftechnology.sbwbusers.service.persistence.EmployeePersistenceImpl" parent="basePersistence" />
-</beans>

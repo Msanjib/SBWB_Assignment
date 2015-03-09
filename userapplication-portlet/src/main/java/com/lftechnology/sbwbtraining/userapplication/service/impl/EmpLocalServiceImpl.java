@@ -27,12 +27,11 @@ import com.liferay.portal.kernel.exception.SystemException;
  * be accessed from within the same VM.
  * </p>
  * 
- * @author Bibhushan Joshi
+ * @author bibhushan
  * @see com.lftechnology.sbwbtraining.userapplication.service.base.EmpLocalServiceBaseImpl
  * @see com.lftechnology.sbwbtraining.userapplication.service.EmpLocalServiceUtil
  */
 public class EmpLocalServiceImpl extends EmpLocalServiceBaseImpl {
-
 
 	/**
 	 * This method adds or updates the given model of {@link Emp} to the
@@ -55,15 +54,13 @@ public class EmpLocalServiceImpl extends EmpLocalServiceBaseImpl {
 			// Case: create new
 			employee_temp = empPersistence.create(counterLocalService
 					.increment(Emp.class.getName()));
-
 			employee_temp.setCompanyName(employee.getCompanyName());
 			employee_temp.setCompanyId(employee.getCompanyId());
 			employee_temp.setGroupId(employee.getGroupId());
-			merge=false;
+			merge = false;
 		} else {
 			// Case: Edit
 			employee_temp = EmpLocalServiceUtil.getEmp(employee.getUserId());
-
 		}
 		employee_temp.setDepId(employee.getDepId());
 		employee_temp.setStatus(employee.getStatus());
@@ -77,22 +74,40 @@ public class EmpLocalServiceImpl extends EmpLocalServiceBaseImpl {
 	}
 
 	/**
-	 * This method searches the string search in the data base to give out the search list
-	 *@author bibhushan
+	 * This method searches the {@link String} in the database that matches the
+	 * firstName, lastName or address of {@link Emp}.The {@link List} of
+	 * {@link Emp} is returned as are result.
+	 * 
+	 * @param {@link String} to be searched in the database
+	 * @return {@link List} of {@link Emp} instance
+	 * @throws SystemException
+	 * @author bibhushan
 	 */
 	public List<Emp> searchEmployees(String search) throws SystemException {
 		System.out.println("inside search emp local service:");
-		String searchTerm =new StringBuilder("%").append(search).append("%").toString();
+		String searchTerm = new StringBuilder("%").append(search).append("%")
+				.toString();
 		DynamicQuery query2 = DynamicQueryFactoryUtil.forClass(Emp.class);
-		Criterion criterion =  RestrictionsFactoryUtil.like("firstName",searchTerm);
-		criterion=RestrictionsFactoryUtil.or(criterion,RestrictionsFactoryUtil.like("lastName",searchTerm));
-		criterion=RestrictionsFactoryUtil.or(criterion,RestrictionsFactoryUtil.like("address",searchTerm));
+		Criterion criterion = RestrictionsFactoryUtil.like("firstName",
+				searchTerm);
+		criterion = RestrictionsFactoryUtil.or(criterion,
+				RestrictionsFactoryUtil.like("lastName", searchTerm));
+		criterion = RestrictionsFactoryUtil.or(criterion,
+				RestrictionsFactoryUtil.like("address", searchTerm));
 		query2.add(criterion);
 		@SuppressWarnings("unchecked")
-		List<Emp> results=EmpLocalServiceUtil.dynamicQuery(query2);
+		List<Emp> results = EmpLocalServiceUtil.dynamicQuery(query2);
 		return results;
 	}
 
+	/**
+	 * This method return the {@link List} of all the {@link Emp} from the
+	 * database.
+	 * 
+	 * @return {@link List} of {@link Emp} instance
+	 * @throws SystemException
+	 * @author bibhushan
+	 */
 	public List<Emp> getAllEmployees() throws SystemException {
 		return empPersistence.findAll();
 	}

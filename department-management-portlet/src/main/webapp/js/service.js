@@ -1,1 +1,0 @@
-Liferay.Service.register("Liferay.Service.DM", "com.lftechnology.sbwbtraining.service", "department-management-portlet");

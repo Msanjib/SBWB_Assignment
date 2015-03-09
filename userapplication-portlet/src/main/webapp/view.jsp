@@ -10,14 +10,12 @@
 <portlet:actionURL name="editOrDeleteSBWBUsers"
 	var="editOrDeleteSBWBUsers" />
 <portlet:resourceURL var="serve"></portlet:resourceURL>
-<portlet:actionURL name="addUser" var="addUserURL" />
-<portlet:actionURL name="addUser" var="updateUserURL" />
-<portlet:actionURL name="getList" var="getListURL" />
+<portlet:actionURL name="getEmployeeList" var="getEmployeeListURL" />
 <portlet:resourceURL var="view"></portlet:resourceURL>
 <portlet:defineObjects />
 <script>
 	function search() {
-		var urlNew = '${getListURL}' + "&search=" + $("#search").val();
+		var urlNew = '${getEmployeeListURL}' + "&search=" + $("#search").val();
 		jQuery("#jqGridEmp").setGridParam({
 			rowNum : 10,
 			datatype : "json",
@@ -130,7 +128,7 @@
 	var lastSel = 1;
 	jQuery("#jqGridEmp").jqGrid(
 			{
-				url : '${getListURL}',
+				url : '${getEmployeeListURL}',
 				editurl : '${editOrDeleteSBWBUsers}',
 				datatype : 'json',
 				edit : true,

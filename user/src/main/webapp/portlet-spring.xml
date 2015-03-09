@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<bean id="com.lftechnology.sbwbusers.service.EmployeeLocalServiceUtil"
-	class="com.lftechnology.sbwbusers.service.EmployeeLocalServiceUtil">
-	<property name="finder"
-		ref="com.lftechnology.sbwbusers.service.EmployeeLocalServiceUtil"></property>
-</bean>

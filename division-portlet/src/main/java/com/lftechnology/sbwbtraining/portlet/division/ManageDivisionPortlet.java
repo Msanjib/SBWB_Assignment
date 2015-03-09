@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
@@ -12,7 +13,6 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
-
 import com.lftechnology.sbwbtraining.division.model.Division;
 import com.lftechnology.sbwbtraining.division.service.DivisionLocalServiceUtil;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -24,159 +24,143 @@ import com.liferay.util.bridges.mvc.MVCPortlet;
 
 /**
  * Portlet implementation class ManageDivisionPortlet
+ * @author sanjib maharjan
  */
 public class ManageDivisionPortlet extends MVCPortlet {
+	public static Logger LOGGER = Logger.getLogger(ManageDivisionPortlet.class
+			.getSimpleName());
+
 	@Override
 	public void doView(RenderRequest renderRequest,
 			RenderResponse renderResponse) throws IOException, PortletException {
-		// TODO Auto-generated method stub
 		try {
 			renderRequest.setAttribute("noDep",
 					DivisionLocalServiceUtil.getDivisionsCount());
 		} catch (SystemException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "System Exception.{0} {1} {2}",
+					new Object[] { e.getClass(), e.getMessage(), e.getCause() });
 		}
 		super.doView(renderRequest, renderResponse);
 	}
 
-	@Override
+	/**
+	 * This method handles the ajax call for getting the records from database.
+	 * 
+	 * @param resourceRequest
+	 *            the request sent to the portlet
+	 * @param resourceResponse
+	 *            the response sent by the portlet
+	 * @author sanjib maharjan
+	 */
 	public void serveResource(ResourceRequest resourceRequest,
 			ResourceResponse resourceResponse) throws IOException,
 			PortletException {
 		try {
-			resourceResponse.getWriter()
-					.print(ActionUtils.getData().toString());
+			resourceResponse.getWriter().print(
+					ActionUtils.getDepartmentAsJson().toString());
 		} catch (SystemException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "System Exception.{0} {1} {2}",
+					new Object[] { e.getClass(), e.getMessage(), e.getCause() });
 		}
-		// super.serveResource(resourceRequest, resourceResponse);
 	}
 
-	public void update(ActionRequest req, ActionResponse res) {
-		System.out.println("update called");
-	}
-
-	public void deleteDivision(ActionRequest req, ActionResponse res) {
-		System.out.println("delete called");
-	}
-
-	public void editOrDeleteDivision(ActionRequest req, ActionResponse res) {
-		String action = req.getParameter("oper");
-		String divisionId = req.getParameter("divisionId");
+	/**
+	 * This method edits or deletes the entry in the database as per the action
+	 * set by the parameter oper.If the action is edit the database will be
+	 * modified with the provided model of {@link Division} or if the action is
+	 * delete the entry will be deleted from the database that matches with the
+	 * divisionId.
+	 * 
+	 * @param request
+	 *            the request sent to the portlet
+	 * @param response
+	 *            the response sent by the portlet
+	 * @author sanjib maharjan
+	 */
+	public void editOrDeleteDivision(ActionRequest request,
+			ActionResponse response) {
+		String action = request.getParameter("oper");
+		String divisionId = request.getParameter("divisionId");
 		if (action.equals("edit")) {
-			String divisionName = req.getParameter("divisionName");
-			// String createdBy = req.getParameter("createdBy");
-			// String createdOn = req.getParameter("createdOn");
-			// String companyId = req.getParameter("companyId");
-			// String groupId = req.getParameter("groupId");
-
-			// System.out.println("productName"+ productName);
-			// System.out.println("productSerial"+ productSerial);
-			// TODO Validate
-			// Save to database
+			String divisionName = request.getParameter("divisionName");
 			Division division = DivisionLocalServiceUtil.createDivision(0);
 			division.setDivisionName(divisionName);
 			division.setDivisionId(Long.parseLong(divisionId));
-			// department.setCreatedBy(createdBy);
-			// department.setCreatedOn(createdOn);
-			// department.setCompanyId(Long.parseLong(companyId));
-			// department.setGroupId(Long.parseLong(groupId));
 			try {
 				DivisionLocalServiceUtil.addUpdateDivision(division);
 			} catch (PortalException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				LOGGER.log(
+						Level.SEVERE,
+						"Portal Exception.{0} {1} {2}",
+						new Object[] { e.getClass(), e.getMessage(),
+								e.getCause() });
 			} catch (SystemException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				LOGGER.log(
+						Level.SEVERE,
+						"System Exception.{0} {1} {2}",
+						new Object[] { e.getClass(), e.getMessage(),
+								e.getCause() });
 			}
 		} else if (action.equals("del")) {
-			divisionId = req.getParameter("id");
+			divisionId = request.getParameter("id");
 			if (Validator.isNotNull(divisionId)) {
-				// PRProduct product = PRProductLocalServiceUtil
-				// .getPRProduct(productKey);
-				// request.setAttribute("product", product);
-				// response.setRenderParameter("jspPage", "/edit_product");
 				try {
 					DivisionLocalServiceUtil.deleteDivision(Long
 							.parseLong(divisionId));
 				} catch (NumberFormatException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					LOGGER.log(
+							Level.SEVERE,
+							"Number Format Exception on divisionId.cannot parse to Long.{0} {1} {2}",
+							new Object[] { e.getClass(), e.getMessage(),
+									e.getCause() });
 				} catch (PortalException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					LOGGER.log(
+							Level.SEVERE,
+							"Portal Exception.{0} {1} {2}",
+							new Object[] { e.getClass(), e.getMessage(),
+									e.getCause() });
 				} catch (SystemException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					LOGGER.log(
+							Level.SEVERE,
+							"System Exception.{0} {1} {2}",
+							new Object[] { e.getClass(), e.getMessage(),
+									e.getCause() });
 				}
 			} else {
-				System.out.println("Delete Unsuccessful");
+				LOGGER.log(Level.SEVERE,
+						"Delete unsuccessful.The division id is null.");
 			}
 		}
-
-		// product.setProductId(Long.parseLong(productId));
-		// product.setProductName(productName);
-		// product.setSerialNumber(productSerial);
-		// product.setCompanyId(PortalUtil.getCompanyId(request));
-		// PortalUtil.getUserId(request);
-		// try {
-		// product.setGroupId(GroupLocalServiceUtil.getCompanyGroup(
-		// PortalUtil.getCompanyId(request)).getGroupId());
-		// } catch (PortalException e1) {
-		// e1.printStackTrace();
-		// } catch (SystemException e1) {
-		// e1.printStackTrace();
-		// }
-		// ArrayList<String> errors = new ArrayList<String>();
-		// if (ProdRegValidator.validateProduct(product, errors)) {
-		// try {
-		// PRProductLocalServiceUtil.addUpdatePRProduct(product,
-		// themeDisplay.getUserId());
-		// } catch (PortalException | SystemException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		// SessionMessages.add(request, "request_processed",
-		// "product-updated-successfully");
-		// } else {
-		// SessionErrors.add(request, "fields-required");
-		// }
-
 	}
 
-	public void addNewDivision(ActionRequest req, ActionResponse res) {
-		String divisionName = req.getParameter("divisionName");
+	/**
+	 * This method adds the division {@link Division} entry to the database
+	 * 
+	 * @param request
+	 *            the request sent to the portlet
+	 * @param response
+	 *            the response sent by the portlet
+	 * @author sanjib maharjan
+	 */
+	public void addNewDivision(ActionRequest request, ActionResponse response) {
+		String divisionName = request.getParameter("divisionName");
 		Division division = DivisionLocalServiceUtil.createDivision(0);
 		division.setDivisionName(divisionName);
-		division.setCompanyId(PortalUtil.getCompanyId(req));
+		division.setCompanyId(PortalUtil.getCompanyId(request));
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 		Date date = new Date();
-		System.out.println(dateFormat.format(date));
 		division.setCreatedOn(dateFormat.format(date));
-		// PortalUtil.getUserId(request);
 		try {
-			division.setCreatedBy(PortalUtil.getUser(req).getFullName());
+			division.setCreatedBy(PortalUtil.getUser(request).getFullName());
 			division.setGroupId(GroupLocalServiceUtil.getCompanyGroup(
-					PortalUtil.getCompanyId(req)).getGroupId());
-		} catch (PortalException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (SystemException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
-		try {
+					PortalUtil.getCompanyId(request)).getGroupId());
 			DivisionLocalServiceUtil.addUpdateDivision(division);
 		} catch (PortalException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Portal Exception.{0} {1} {2}",
+					new Object[] { e.getClass(), e.getMessage(), e.getCause() });
 		} catch (SystemException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "System Exception.{0} {1} {2}",
+					new Object[] { e.getClass(), e.getMessage(), e.getCause() });
 		}
 
 	}

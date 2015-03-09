@@ -25,17 +25,18 @@ public class ActionUtils {
 	 * converts it into the {@link JSON} format as per the format required for
 	 * jqGrid plugin library and finally returns the formatted {@link JSON}
 	 * 
-	 * @return the formatted {@link JSON} insstance with all {@link Emp}
+	 * @return the formatted {@link JSON} instance with all {@link Emp}
 	 *         information stored in database
 	 * @throws IOException
 	 * @throws SystemException
 	 * @author sanjib maharjan
 	 */
-	public static JSONObject getAllEmployeeAsJson(List<Emp> objectList) throws IOException,
-			SystemException {
+	public static JSONObject getAllEmployeeAsJson(List<Emp> objectList)
+			throws IOException, SystemException {
 		JSONObject recordsjsonObject = JSONFactoryUtil.createJSONObject();
 		JSONObject cellObject = null;
-		List<Division> departments = DivisionLocalServiceUtil.getEveryDivisions();
+		List<Division> departments = DivisionLocalServiceUtil
+				.getEveryDivisions();
 		Emp entry = null;
 		String status = "Inactive";
 		JSONArray recordsjsonArray = JSONFactoryUtil.createJSONArray();
@@ -56,15 +57,15 @@ public class ActionUtils {
 				cellObject.put("email", String.valueOf(entry.getEmail()));
 				cellObject.put("companyName",
 						String.valueOf(entry.getCompanyName()));
-				cellObject.put("departmentName",
-						String.valueOf(mapToDepartmentNameById(departments, entry.getDepId())));
-				if(entry.getStatus()){
+				cellObject.put("departmentName", String
+						.valueOf(mapToDepartmentNameById(departments,
+								entry.getDepId())));
+				if (entry.getStatus()) {
 					status = "Active";
-				}else{
+				} else {
 					status = "Inactive";
 				}
-				cellObject.put("status",
-						status);
+				cellObject.put("status", status);
 				cellObject.put("companyId", String.valueOf(entry.getGroupId()));
 				cellObject.put("groupId", String.valueOf(entry.getGroupId()));
 				cellObject.put("userId", String.valueOf(entry.getUserId()));
@@ -75,35 +76,60 @@ public class ActionUtils {
 		return recordsjsonObject;
 
 	}
-	
-	public static String mapToDepartmentNameById(List<Division> departments, long depId){
-		String departmentName="Executive";
-		for(Division division : departments){
-			if(division.getDivisionId() == depId){
+
+	/**
+	 * This method provides the equivalent department name with the given id as
+	 * the parameter from the list of department.If the department value is not
+	 * found in the given list then a default string "Executive" is returned.
+	 * 
+	 * @param departments
+	 *            the list of {@link Division} instance
+	 * @param depId
+	 *            the id to be mapped to the department name
+	 * @return the name of Department that corresponds to the given id if the id
+	 *         is matched or else it returns Executive
+	 * @author sanjib maharjan
+	 */
+	public static String mapToDepartmentNameById(List<Division> departments,
+			long depId) {
+		String departmentName = "Executive";
+		for (Division division : departments) {
+			if (division.getDivisionId() == depId) {
 				departmentName = division.getDivisionName();
 				break;
 			}
 		}
 		return departmentName;
 	}
-	
-	public static JSONObject getDepartmentsAsJson(List<Division> departments){
+
+	/**
+	 * This method returns the {@link JSON} with the department id as the key
+	 * entity and department name as the value from the given lists of
+	 * department
+	 * 
+	 * @param departments the list of {@link Division} instance
+	 * @return the key value pair of department id and department name
+	 * @author sanjib maharjan
+	 */
+	public static JSONObject getDepartmentsAsJson(List<Division> departments) {
 		JSONObject departmentJson = JSONFactoryUtil.createJSONObject();
-		for(Division division : departments){
-			departmentJson.put(division.getDivisionId()+"", division.getDivisionName());
+		for (Division division : departments) {
+			departmentJson.put(division.getDivisionId() + "",
+					division.getDivisionName());
 		}
 		return departmentJson;
 	}
 
 	/**
 	 * This method converts the given {@link Emp} instance to {@link JSON}
-	 * format with the keys as per the columns name in database and values as per the entry stored in <code>user</user> as parameter.
+	 * format with the keys as per the columns name in database and values as
+	 * per the entry stored in <code>user</user> as parameter.
 	 * 
-	 * @param user the {@link Emp} instance to format as {@link JSON}
+	 * @param user
+	 *            the {@link Emp} instance to format as {@link JSON}
 	 * @return the formated {@link JSON} instance.
 	 * @author sanjib maharjan
 	 */
-
 	public static JSONObject convertUsersDataToJson(Emp user) {
 		JSONObject recordsjsonObject = JSONFactoryUtil.createJSONObject();
 		recordsjsonObject.put("firstName", user.getFirstName());
