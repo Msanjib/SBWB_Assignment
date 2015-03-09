@@ -41,7 +41,7 @@ public class EmpPortlet extends MVCPortlet {
 
 	@Override
 	public void doView(RenderRequest renderRequest,
-			RenderResponse renderResponse) throws IOException, PortletException {
+			RenderResponse renderResponse){
 		try {
 			List<Division> departments = DivisionLocalServiceUtil
 					.getEveryDivisions();
@@ -49,13 +49,19 @@ public class EmpPortlet extends MVCPortlet {
 			renderRequest.setAttribute("jsonDepartments",
 					ActionUtils.getDepartmentsAsJson(departments));
 		} catch (SystemException e) {
-			LOGGER.log(
-					Level.SEVERE,
-					"System Exception.{0} {1} {2}",
-					new Object[] { e.getClass(), e.getMessage(),
-							e.getCause() });
+			LOGGER.log(Level.SEVERE, "System Exception.{0} {1} {2}",
+					new Object[] { e.getClass(), e.getMessage(), e.getCause() });
 		}
-		super.doView(renderRequest, renderResponse);
+		
+		try {
+			super.doView(renderRequest, renderResponse);
+		} catch (IOException e) {
+			LOGGER.log(Level.SEVERE, "IO Exception.{0} {1} {2}",
+					new Object[] { e.getClass(), e.getMessage(), e.getCause() });
+		} catch (PortletException e) {
+			LOGGER.log(Level.SEVERE, "Portlet Exception.{0} {1} {2}",
+					new Object[] { e.getClass(), e.getMessage(), e.getCause() });
+		}
 	}
 
 	/**
@@ -64,33 +70,32 @@ public class EmpPortlet extends MVCPortlet {
 	 * 
 	 * @param request
 	 * @param response
-	 * @throws IOException
-	 * @throws PortletException
-	 * @throws NoSuchAccountException
-	 * @throws PortalException
 	 * 
 	 * @author bibhushan
 	 */
-	public void getEmployeeList(ActionRequest request, ActionResponse response)
-			throws IOException, PortletException, NoSuchAccountException,
-			PortalException {
+	public void getEmployeeList(ActionRequest request, ActionResponse response) {
 		try {
 			if (request.getParameter("search") == null) {
 				List<Emp> objectList = EmpLocalServiceUtil.getAllEmployees();
 				writeJSON(request, response,
 						ActionUtils.getAllEmployeeAsJson(objectList));
 			} else {
-				System.out.println("not a null value");
 				List<Emp> object = ActionUtils.searchUser(request, response);
 				writeJSON(request, response,
 						ActionUtils.getAllEmployeeAsJson(object));
 			}
 		} catch (SystemException e) {
-			LOGGER.log(
-					Level.SEVERE,
-					"System Exception.{0} {1} {2}",
-					new Object[] { e.getClass(), e.getMessage(),
-							e.getCause() });
+			LOGGER.log(Level.SEVERE, "System Exception.{0} {1} {2}",
+					new Object[] { e.getClass(), e.getMessage(), e.getCause() });
+		} catch (IOException e) {
+			LOGGER.log(Level.SEVERE, "IO Exception.{0} {1} {2}", new Object[] {
+					e.getClass(), e.getMessage(), e.getCause() });
+		} catch (NoSuchAccountException e) {
+			LOGGER.log(Level.SEVERE, "No Such Account Exception.{0} {1} {2}", new Object[] {
+					e.getClass(), e.getMessage(), e.getCause() });
+		} catch (PortalException e) {
+			LOGGER.log(Level.SEVERE, "Portal Exception.{0} {1} {2}", new Object[] {
+					e.getClass(), e.getMessage(), e.getCause() });
 		}
 	}
 
@@ -99,35 +104,37 @@ public class EmpPortlet extends MVCPortlet {
 	 * 
 	 * @param request
 	 * @param response
-	 * @throws NoSuchAccountException
-	 * @throws SystemException
-	 * @throws PortalException
 	 * 
 	 * @author bibhushan
 	 */
-	public void deleteUser(ActionRequest request, ActionResponse response)
-			throws NoSuchAccountException, SystemException, PortalException {
+	public void deleteUser(ActionRequest request, ActionResponse response){
 		long userId = ParamUtil.getLong(request, "userId");
-		EmpLocalServiceUtil.deleteEmp(userId);
+		try {
+			EmpLocalServiceUtil.deleteEmp(userId);
+		} catch (PortalException e) {
+			LOGGER.log(Level.SEVERE, "Portal Exception.{0} {1} {2}",
+					new Object[] { e.getClass(), e.getMessage(), e.getCause() });
+		} catch (SystemException e) {
+			LOGGER.log(Level.SEVERE, "System Exception.{0} {1} {2}",
+					new Object[] { e.getClass(), e.getMessage(), e.getCause() });
+		}
 	}
 
-	
-
 	/**
-	 * This method handles the ajax call for addition of records to database, getting user info as
-	 * {@link JSON} with provided id and also retrives the information of all
-	 * the employee as {@link JSON} according to the conditions met.
+	 * This method handles the ajax call for addition of records to database,
+	 * getting user info as {@link JSON} with provided id and also retrives the
+	 * information of all the employee as {@link JSON} according to the
+	 * conditions met.
 	 * 
 	 * @param resourceRequest
 	 *            the request sent to the portlet
 	 * @param resourceResponse
 	 *            the response sent by the portlet
-	 *            
+	 * 
 	 * @author sanjib maharjan
 	 */
 	public void serveResource(ResourceRequest resourceRequest,
-			ResourceResponse resourceResponse) throws IOException,
-			PortletException {
+			ResourceResponse resourceResponse){
 		String uid = resourceRequest.getParameter("uid");
 		if (uid != null) {
 			if (uid.equalsIgnoreCase("add")) {
@@ -144,7 +151,8 @@ public class EmpPortlet extends MVCPortlet {
 				employee.setEmail(resourceRequest.getParameter("email"));
 
 				try {
-					employee.setCompanyName(PortalUtil.getCompany(resourceRequest).getName());
+					employee.setCompanyName(PortalUtil.getCompany(
+							resourceRequest).getName());
 					employee.setGroupId(GroupLocalServiceUtil.getCompanyGroup(
 							employee.getCompanyId()).getGroupId());
 					EmpLocalServiceUtil.addUpdateEmp(employee);
@@ -165,15 +173,28 @@ public class EmpPortlet extends MVCPortlet {
 				JSONObject recordsjsonObject = JSONFactoryUtil
 						.createJSONObject();
 				recordsjsonObject.put("firstName", "");
-				resourceResponse.getWriter().print(recordsjsonObject);
-				super.serveResource(resourceRequest, resourceResponse);
+				try {
+					resourceResponse.getWriter().print(recordsjsonObject);
+					super.serveResource(resourceRequest, resourceResponse);
+				} catch (IOException e) {
+					LOGGER.log(Level.SEVERE, "IO Exception.{0} {1} {2}",
+							new Object[] { e.getClass(), e.getMessage(), e.getCause() });
+				} catch (PortletException e) {
+					LOGGER.log(Level.SEVERE, "Portlet Exception.{0} {1} {2}",
+							new Object[] { e.getClass(), e.getMessage(), e.getCause() });
+				}
 			} else {
 				Emp employee = null;
 				try {
 					employee = EmpLocalServiceUtil.getEmp(Long.parseLong(uid));
 					if (employee != null) {
-						resourceResponse.getWriter().print(
-								ActionUtils.convertUsersDataToJson(employee));
+						try {
+							resourceResponse.getWriter().print(
+									ActionUtils.convertUsersDataToJson(employee));
+						} catch (IOException e) {
+							LOGGER.log(Level.SEVERE, "IO Exception.{0} {1} {2}",
+									new Object[] { e.getClass(), e.getMessage(), e.getCause() });
+						}
 					}
 				} catch (NumberFormatException e) {
 					LOGGER.log(
@@ -194,7 +215,15 @@ public class EmpPortlet extends MVCPortlet {
 							new Object[] { e.getClass(), e.getMessage(),
 									e.getCause() });
 				}
-				super.serveResource(resourceRequest, resourceResponse);
+				try {
+					super.serveResource(resourceRequest, resourceResponse);
+				} catch (IOException e) {
+					LOGGER.log(Level.SEVERE, "IO Exception.{0} {1} {2}",
+							new Object[] { e.getClass(), e.getMessage(), e.getCause() });
+				} catch (PortletException e) {
+					LOGGER.log(Level.SEVERE, "Portlet Exception.{0} {1} {2}",
+							new Object[] { e.getClass(), e.getMessage(), e.getCause() });
+				}
 			}
 
 		} else {
@@ -209,6 +238,9 @@ public class EmpPortlet extends MVCPortlet {
 						"System Exception.{0} {1} {2}",
 						new Object[] { e.getClass(), e.getMessage(),
 								e.getCause() });
+			} catch (IOException e) {
+				LOGGER.log(Level.SEVERE, "IO Exception.{0} {1} {2}",
+						new Object[] { e.getClass(), e.getMessage(), e.getCause() });
 			}
 		}
 	}

@@ -28,18 +28,28 @@ import com.liferay.portal.kernel.exception.SystemException;
  * @see com.lftechnology.sbwbtraining.division.service.DivisionLocalServiceUtil
  */
 public class DivisionLocalServiceImpl extends DivisionLocalServiceBaseImpl {
-	/*
-	 * NOTE FOR DEVELOPERS:
+	/**
+	 * This method fetches all entry of {@link Division} from the database table
+	 * and returns them as a list
 	 * 
-	 * Never reference this interface directly. Always use {@link
-	 * com.lftechnology.sbwbtraining.division.service.DivisionLocalServiceUtil}
-	 * to access the division local service.
+	 * @return the list of all {@link Division} entry from the database table
+	 * @author sanjib maharjan
 	 */
 	public List<Division> getEveryDivisions() throws SystemException {
 		return divisionPersistence.findAll();
 	}
 
-	public Division addUpdateDivision(Division division) throws PortalException, SystemException {
+	/**
+	 * This method add or update the entry of {@link Division} instance in the
+	 * database table
+	 * 
+	 * @param division
+	 *            a {@link Division} instance to be added or updated to the
+	 *            database
+	 * @author sanjib maharjan
+	 */
+	public Division addUpdateDivision(Division division)
+			throws PortalException, SystemException {
 		Division divisionTemp;
 		boolean merge = true;
 		if (division.getDivisionId() == 0) {
@@ -53,24 +63,25 @@ public class DivisionLocalServiceImpl extends DivisionLocalServiceBaseImpl {
 			merge = false;
 		} else {
 			// Case: Edit
-			divisionTemp = DivisionLocalServiceUtil
-					.getDivision(division.getDivisionId());
+			divisionTemp = DivisionLocalServiceUtil.getDivision(division
+					.getDivisionId());
 
 		}
 		divisionTemp.setDivisionName(division.getDivisionName());
-		// departmenttemp.setDepartmentId(department.getDepartmentId());
-		// departmenttemp.setCreatedBy(department.getCreatedBy());
-		// departmenttemp.setCreatedOn(department.getCreatedOn());
-		// departmenttemp.setCompanyId(department.getCompanyId());
-		// departmenttemp.setGroupId(department.getGroupId());
-
 		return divisionPersistence.update(divisionTemp, merge);
 	}
 
+	/**
+	 * This method removes entry of {@link Division} from the database table
+	 * that matches with the divisionId
+	 * 
+	 * @param divisionId
+	 *            the response sent by the portlet
+	 * @author sanjib maharjan
+	 */
 	public void deleteDivisionById(long divisionId) throws SystemException,
 			PortalException {
-		Division division = divisionPersistence
-				.findByPrimaryKey(divisionId);
+		Division division = divisionPersistence.findByPrimaryKey(divisionId);
 		deleteDivision(division);
 	}
 

@@ -32,7 +32,7 @@ public class ManageDivisionPortlet extends MVCPortlet {
 
 	@Override
 	public void doView(RenderRequest renderRequest,
-			RenderResponse renderResponse) throws IOException, PortletException {
+			RenderResponse renderResponse){
 		try {
 			renderRequest.setAttribute("noDep",
 					DivisionLocalServiceUtil.getDivisionsCount());
@@ -40,7 +40,15 @@ public class ManageDivisionPortlet extends MVCPortlet {
 			LOGGER.log(Level.SEVERE, "System Exception.{0} {1} {2}",
 					new Object[] { e.getClass(), e.getMessage(), e.getCause() });
 		}
-		super.doView(renderRequest, renderResponse);
+		try {
+			super.doView(renderRequest, renderResponse);
+		} catch (IOException e) {
+			LOGGER.log(Level.SEVERE, "IO Exception.{0} {1} {2}",
+					new Object[] { e.getClass(), e.getMessage(), e.getCause() });
+		} catch (PortletException e) {
+			LOGGER.log(Level.SEVERE, "Portlet Exception.{0} {1} {2}",
+					new Object[] { e.getClass(), e.getMessage(), e.getCause() });
+		}
 	}
 
 	/**
@@ -53,13 +61,15 @@ public class ManageDivisionPortlet extends MVCPortlet {
 	 * @author sanjib maharjan
 	 */
 	public void serveResource(ResourceRequest resourceRequest,
-			ResourceResponse resourceResponse) throws IOException,
-			PortletException {
+			ResourceResponse resourceResponse){
 		try {
 			resourceResponse.getWriter().print(
 					ActionUtils.getDepartmentAsJson().toString());
 		} catch (SystemException e) {
 			LOGGER.log(Level.SEVERE, "System Exception.{0} {1} {2}",
+					new Object[] { e.getClass(), e.getMessage(), e.getCause() });
+		} catch (IOException e) {
+			LOGGER.log(Level.SEVERE, "IO Exception.{0} {1} {2}",
 					new Object[] { e.getClass(), e.getMessage(), e.getCause() });
 		}
 	}
