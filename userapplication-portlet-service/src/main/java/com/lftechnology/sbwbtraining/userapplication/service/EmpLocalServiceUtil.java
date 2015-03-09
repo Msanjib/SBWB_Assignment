@@ -262,30 +262,6 @@ public class EmpLocalServiceUtil {
     }
 
     /**
-    * Method use to add or udpate MOUser
-    *
-    * @author bibhushan
-    */
-    public static com.lftechnology.sbwbtraining.userapplication.model.Emp addUpdateEmp(
-        com.lftechnology.sbwbtraining.userapplication.model.Emp moUser)
-        throws com.liferay.portal.kernel.exception.PortalException,
-            com.liferay.portal.kernel.exception.SystemException {
-        return getService().addUpdateEmp(moUser);
-    }
-
-    /**
-    * This methods retrives all the {@link Emp} instances stored in the database.
-    *
-    * @return the list of {@link Emp} instances
-    * @throws SystemException
-    * @author sanjib maharjan
-    */
-    public static java.util.List<com.lftechnology.sbwbtraining.userapplication.model.Emp> getEveryEmployee()
-        throws com.liferay.portal.kernel.exception.SystemException {
-        return getService().getEveryEmployee();
-    }
-
-    /**
     * This method adds or updates the given model of {@link Emp} to the
     * database. The addition or update depends on the identification stored in
     * given <code>employee</code> as parameter.If it is 0 then addition
@@ -298,29 +274,27 @@ public class EmpLocalServiceUtil {
     * @throws PortalException
     * @author sanjib maharjan
     */
-    public static com.lftechnology.sbwbtraining.userapplication.model.Emp addUpdateEmployee(
+    public static com.lftechnology.sbwbtraining.userapplication.model.Emp addUpdateEmp(
         com.lftechnology.sbwbtraining.userapplication.model.Emp employee)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {
-        return getService().addUpdateEmployee(employee);
+        return getService().addUpdateEmp(employee);
     }
 
     /**
-    * This method removes all {@link Emp} instances that matches with the
-    * provided id as parameter from the databases.
+    * This method searches the string search in the data base to give out the search list
     *
-    * @param userId
-    the identification of the employee to delete.
-    * @return delete employee{@link Emp}
-    * @throws SystemException
-    * @throws PortalException
-    * @author sanjib maharjan
+    * @author bibhushan
     */
-    public static com.lftechnology.sbwbtraining.userapplication.model.Emp deleteEmployeeById(
-        long userId)
-        throws com.liferay.portal.kernel.exception.PortalException,
-            com.liferay.portal.kernel.exception.SystemException {
-        return getService().deleteEmployeeById(userId);
+    public static java.util.List<com.lftechnology.sbwbtraining.userapplication.model.Emp> searchEmployees(
+        java.lang.String search)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getService().searchEmployees(search);
+    }
+
+    public static java.util.List<com.lftechnology.sbwbtraining.userapplication.model.Emp> getAllEmployees()
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getService().getAllEmployees();
     }
 
     public static void clearService() {

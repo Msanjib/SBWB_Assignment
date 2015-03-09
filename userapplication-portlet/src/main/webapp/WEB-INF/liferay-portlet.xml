@@ -15,6 +15,9 @@
 			/js/jquery-1.11.0.min.js
 		</header-portlet-javascript>
 		<header-portlet-javascript>
+			/js/jquery-validate.js
+		</header-portlet-javascript>
+		<header-portlet-javascript>
 			/js/jquery.jqGrid.src.js
 		</header-portlet-javascript>
 

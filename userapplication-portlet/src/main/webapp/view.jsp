@@ -10,7 +10,24 @@
 <portlet:actionURL name="editOrDeleteSBWBUsers"
 	var="editOrDeleteSBWBUsers" />
 <portlet:resourceURL var="serve"></portlet:resourceURL>
+<portlet:actionURL name="addUser" var="addUserURL" />
+<portlet:actionURL name="addUser" var="updateUserURL" />
+<portlet:actionURL name="getList" var="getListURL" />
+<portlet:resourceURL var="view"></portlet:resourceURL>
 <portlet:defineObjects />
+<script>
+	function search() {
+		var urlNew = '${getListURL}' + "&search=" + $("#search").val();
+		jQuery("#jqGridEmp").setGridParam({
+			rowNum : 10,
+			datatype : "json",
+			url : urlNew
+		}).trigger('reloadGrid')
+	}
+</script>
+
+
+
 <div class="main-wrapper">
 	<div class="navi-wrapper cfix">
 		<h1>
@@ -22,7 +39,12 @@
 				placeholder="Search By Name." size="45" /> <input type="submit" />
 		</form>
 		<a href="#add_form" id="addNewEmp">Add New</a>
+		<!-- search input box to find the employees -->
+		<div class="cfix">
+			<input type="text" name="searchItem" placeholder="search" onclick="search()" onKeyDown="if(event.keyCode==13) search();"  id="search" />
+		</div>
 	</div>
+
 	<div class="slider-wrapper cfix" id="slideWrap">
 		<button id="hideInfo" class="hide-info">Hide</button>
 		<img alt="hjkk"
@@ -142,7 +164,7 @@
 								$('#addLabel').text(result.address);
 								$('#phoneLabel').text(result.phoneNumber);
 								$('#emailLabel').text(result.email);
-								$("#slideWrap").show(500);
+								$("#slideWrap").show(700);
 								console.log("ajax call complete "
 										+ result.firstName);
 								// window.location.href='${userInfoURL}';
@@ -164,7 +186,7 @@
 				colModel : [ {
 					name : 'userId',
 					index : 'userId',
-					width : 30,
+					width : 60,
 					align : "center",
 					sorttype : "int",
 					key : true
@@ -357,15 +379,7 @@
 
 					});
 
-	function NewDeviceformatter(cellvalue, options, rowObject)
-
-	{
-
-		$("#" + options.rowId).addClass("selected highlight");
-
-		return cellvalue;
-
-	}
+	
 
 	function emptyAllFields() {
 		$('#fname').val('');
@@ -374,4 +388,8 @@
 		$('#phone').val('');
 		$('#email').val('');
 	}
+
+	$("#hideInfo").click(function() {
+		$("#slideWrap").hide(1000);
+	});
 </script>

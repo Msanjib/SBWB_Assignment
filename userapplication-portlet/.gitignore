@@ -1,3 +1,4 @@
+/target/
 *.class
 
 department-management-portlet/target/

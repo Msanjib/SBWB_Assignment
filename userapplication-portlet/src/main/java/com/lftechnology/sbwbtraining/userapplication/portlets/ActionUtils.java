@@ -12,6 +12,9 @@ import com.lftechnology.sbwbtraining.userapplication.model.Emp;
 import com.lftechnology.sbwbtraining.userapplication.service.EmpLocalServiceUtil;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSON;
+import com.lftechnology.sbwbtraining.userapplication.model.Emp;
+import com.lftechnology.sbwbtraining.userapplication.service.EmpLocalServiceUtil;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
@@ -28,9 +31,8 @@ public class ActionUtils {
 	 * @throws SystemException
 	 * @author sanjib maharjan
 	 */
-	public static JSONObject getAllEmployeeAsJson() throws IOException,
+	public static JSONObject getAllEmployeeAsJson(List<Emp> objectList) throws IOException,
 			SystemException {
-		List<Emp> objectList = EmpLocalServiceUtil.getEveryEmployee();
 		JSONObject recordsjsonObject = JSONFactoryUtil.createJSONObject();
 		JSONObject cellObject = null;
 		List<Division> departments = DivisionLocalServiceUtil.getEveryDivisions();

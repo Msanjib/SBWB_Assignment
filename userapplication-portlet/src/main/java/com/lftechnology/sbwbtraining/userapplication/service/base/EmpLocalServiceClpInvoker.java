@@ -48,8 +48,6 @@ public class EmpLocalServiceClpInvoker {
     private String[] _methodParameterTypes45;
     private String _methodName46;
     private String[] _methodParameterTypes46;
-    private String _methodName47;
-    private String[] _methodParameterTypes47;
 
     public EmpLocalServiceClpInvoker() {
         _methodName0 = "addEmp";
@@ -148,19 +146,13 @@ public class EmpLocalServiceClpInvoker {
                 "com.lftechnology.sbwbtraining.userapplication.model.Emp"
             };
 
-        _methodName45 = "getEveryEmployee";
+        _methodName45 = "searchEmployees";
 
-        _methodParameterTypes45 = new String[] {  };
+        _methodParameterTypes45 = new String[] { "java.lang.String" };
 
-        _methodName46 = "addUpdateEmployee";
+        _methodName46 = "getAllEmployees";
 
-        _methodParameterTypes46 = new String[] {
-                "com.lftechnology.sbwbtraining.userapplication.model.Emp"
-            };
-
-        _methodName47 = "deleteEmployeeById";
-
-        _methodParameterTypes47 = new String[] { "long" };
+        _methodParameterTypes46 = new String[] {  };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -271,17 +263,12 @@ public class EmpLocalServiceClpInvoker {
 
         if (_methodName45.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes45, parameterTypes)) {
-            return EmpLocalServiceUtil.getEveryEmployee();
+            return EmpLocalServiceUtil.searchEmployees((java.lang.String) arguments[0]);
         }
 
         if (_methodName46.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes46, parameterTypes)) {
-            return EmpLocalServiceUtil.addUpdateEmployee((com.lftechnology.sbwbtraining.userapplication.model.Emp) arguments[0]);
-        }
-
-        if (_methodName47.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes47, parameterTypes)) {
-            return EmpLocalServiceUtil.deleteEmployeeById(((Long) arguments[0]).longValue());
+            return EmpLocalServiceUtil.getAllEmployees();
         }
 
         throw new UnsupportedOperationException();

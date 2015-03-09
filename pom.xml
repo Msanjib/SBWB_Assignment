@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.lftechnology.sbwbtraining</groupId>
 	<artifactId>department-management</artifactId>
@@ -15,7 +16,7 @@
 		<liferay.app.server.lib.global.dir>${env.LIFERAY_SERVER_GLOBAL_DIR}</liferay.app.server.lib.global.dir>
 		<liferay.app.server.portal.dir>${env.LIFERAY_SERVER_PORTAL_DIR}</liferay.app.server.portal.dir>
 	</properties>
-		<build>
+	<build>
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -44,7 +45,15 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-	
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>jstl</artifactId>
+				<version>1.2</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<modules>
 		<module>division-portlet</module>
 		<module>division-portlet-service</module>

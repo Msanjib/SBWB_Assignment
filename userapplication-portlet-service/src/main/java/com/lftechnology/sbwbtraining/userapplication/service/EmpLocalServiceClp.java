@@ -47,8 +47,6 @@ public class EmpLocalServiceClp implements EmpLocalService {
     private String[] _methodParameterTypes20;
     private String _methodName21;
     private String[] _methodParameterTypes21;
-    private String _methodName22;
-    private String[] _methodParameterTypes22;
 
     public EmpLocalServiceClp(InvokableLocalService invokableLocalService) {
         _invokableLocalService = invokableLocalService;
@@ -149,19 +147,13 @@ public class EmpLocalServiceClp implements EmpLocalService {
                 "com.lftechnology.sbwbtraining.userapplication.model.Emp"
             };
 
-        _methodName20 = "getEveryEmployee";
+        _methodName20 = "searchEmployees";
 
-        _methodParameterTypes20 = new String[] {  };
+        _methodParameterTypes20 = new String[] { "java.lang.String" };
 
-        _methodName21 = "addUpdateEmployee";
+        _methodName21 = "getAllEmployees";
 
-        _methodParameterTypes21 = new String[] {
-                "com.lftechnology.sbwbtraining.userapplication.model.Emp"
-            };
-
-        _methodName22 = "deleteEmployeeById";
-
-        _methodParameterTypes22 = new String[] { "long" };
+        _methodParameterTypes21 = new String[] {  };
     }
 
     public com.lftechnology.sbwbtraining.userapplication.model.Emp addEmp(
@@ -655,7 +647,7 @@ public class EmpLocalServiceClp implements EmpLocalService {
     }
 
     public com.lftechnology.sbwbtraining.userapplication.model.Emp addUpdateEmp(
-        com.lftechnology.sbwbtraining.userapplication.model.Emp moUser)
+        com.lftechnology.sbwbtraining.userapplication.model.Emp employee)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {
         Object returnObj = null;
@@ -663,63 +655,6 @@ public class EmpLocalServiceClp implements EmpLocalService {
         try {
             returnObj = _invokableLocalService.invokeMethod(_methodName19,
                     _methodParameterTypes19,
-                    new Object[] { ClpSerializer.translateInput(moUser) });
-        } catch (Throwable t) {
-            t = ClpSerializer.translateThrowable(t);
-
-            if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
-                throw (com.liferay.portal.kernel.exception.PortalException) t;
-            }
-
-            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
-                throw (com.liferay.portal.kernel.exception.SystemException) t;
-            }
-
-            if (t instanceof RuntimeException) {
-                throw (RuntimeException) t;
-            } else {
-                throw new RuntimeException(t.getClass().getName() +
-                    " is not a valid exception");
-            }
-        }
-
-        return (com.lftechnology.sbwbtraining.userapplication.model.Emp) ClpSerializer.translateOutput(returnObj);
-    }
-
-    public java.util.List<com.lftechnology.sbwbtraining.userapplication.model.Emp> getEveryEmployee()
-        throws com.liferay.portal.kernel.exception.SystemException {
-        Object returnObj = null;
-
-        try {
-            returnObj = _invokableLocalService.invokeMethod(_methodName20,
-                    _methodParameterTypes20, new Object[] {  });
-        } catch (Throwable t) {
-            t = ClpSerializer.translateThrowable(t);
-
-            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
-                throw (com.liferay.portal.kernel.exception.SystemException) t;
-            }
-
-            if (t instanceof RuntimeException) {
-                throw (RuntimeException) t;
-            } else {
-                throw new RuntimeException(t.getClass().getName() +
-                    " is not a valid exception");
-            }
-        }
-
-        return (java.util.List<com.lftechnology.sbwbtraining.userapplication.model.Emp>) ClpSerializer.translateOutput(returnObj);
-    }
-
-    public com.lftechnology.sbwbtraining.userapplication.model.Emp addUpdateEmployee(
-        com.lftechnology.sbwbtraining.userapplication.model.Emp employee)
-        throws com.liferay.portal.kernel.exception.PortalException,
-            com.liferay.portal.kernel.exception.SystemException {
-        Object returnObj = null;
-
-        try {
-            returnObj = _invokableLocalService.invokeMethod(_methodName21,
-                    _methodParameterTypes21,
                     new Object[] { ClpSerializer.translateInput(employee) });
         } catch (Throwable t) {
             t = ClpSerializer.translateThrowable(t);
@@ -743,21 +678,17 @@ public class EmpLocalServiceClp implements EmpLocalService {
         return (com.lftechnology.sbwbtraining.userapplication.model.Emp) ClpSerializer.translateOutput(returnObj);
     }
 
-    public com.lftechnology.sbwbtraining.userapplication.model.Emp deleteEmployeeById(
-        long userId)
-        throws com.liferay.portal.kernel.exception.PortalException,
-            com.liferay.portal.kernel.exception.SystemException {
+    public java.util.List<com.lftechnology.sbwbtraining.userapplication.model.Emp> searchEmployees(
+        java.lang.String search)
+        throws com.liferay.portal.kernel.exception.SystemException {
         Object returnObj = null;
 
         try {
-            returnObj = _invokableLocalService.invokeMethod(_methodName22,
-                    _methodParameterTypes22, new Object[] { userId });
+            returnObj = _invokableLocalService.invokeMethod(_methodName20,
+                    _methodParameterTypes20,
+                    new Object[] { ClpSerializer.translateInput(search) });
         } catch (Throwable t) {
             t = ClpSerializer.translateThrowable(t);
-
-            if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
-                throw (com.liferay.portal.kernel.exception.PortalException) t;
-            }
 
             if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
                 throw (com.liferay.portal.kernel.exception.SystemException) t;
@@ -771,6 +702,31 @@ public class EmpLocalServiceClp implements EmpLocalService {
             }
         }
 
-        return (com.lftechnology.sbwbtraining.userapplication.model.Emp) ClpSerializer.translateOutput(returnObj);
+        return (java.util.List<com.lftechnology.sbwbtraining.userapplication.model.Emp>) ClpSerializer.translateOutput(returnObj);
+    }
+
+    public java.util.List<com.lftechnology.sbwbtraining.userapplication.model.Emp> getAllEmployees()
+        throws com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableLocalService.invokeMethod(_methodName21,
+                    _methodParameterTypes21, new Object[] {  });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (java.util.List<com.lftechnology.sbwbtraining.userapplication.model.Emp>) ClpSerializer.translateOutput(returnObj);
     }
 }
