@@ -253,8 +253,13 @@ public interface EmpLocalService extends BaseLocalService, InvokableLocalService
             com.liferay.portal.kernel.exception.SystemException;
 
     /**
-    * This method searches the string search in the data base to give out the search list
+    * This method searches the {@link String} in the database that matches the
+    * firstName, lastName or address of {@link Emp}.The {@link List} of
+    * {@link Emp} is returned as are result.
     *
+    * @param {@link String} to be searched in the database
+    * @return {@link List} of {@link Emp} instance
+    * @throws SystemException
     * @author bibhushan
     */
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -262,6 +267,14 @@ public interface EmpLocalService extends BaseLocalService, InvokableLocalService
         java.lang.String search)
         throws com.liferay.portal.kernel.exception.SystemException;
 
+    /**
+    * This method return the {@link List} of all the {@link Emp} from the
+    * database.
+    *
+    * @return {@link List} of {@link Emp} instance
+    * @throws SystemException
+    * @author bibhushan
+    */
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public java.util.List<com.lftechnology.sbwbtraining.userapplication.model.Emp> getAllEmployees()
         throws com.liferay.portal.kernel.exception.SystemException;

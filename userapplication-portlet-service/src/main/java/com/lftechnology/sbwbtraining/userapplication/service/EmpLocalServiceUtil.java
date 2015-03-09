@@ -282,8 +282,13 @@ public class EmpLocalServiceUtil {
     }
 
     /**
-    * This method searches the string search in the data base to give out the search list
+    * This method searches the {@link String} in the database that matches the
+    * firstName, lastName or address of {@link Emp}.The {@link List} of
+    * {@link Emp} is returned as are result.
     *
+    * @param {@link String} to be searched in the database
+    * @return {@link List} of {@link Emp} instance
+    * @throws SystemException
     * @author bibhushan
     */
     public static java.util.List<com.lftechnology.sbwbtraining.userapplication.model.Emp> searchEmployees(
@@ -292,6 +297,14 @@ public class EmpLocalServiceUtil {
         return getService().searchEmployees(search);
     }
 
+    /**
+    * This method return the {@link List} of all the {@link Emp} from the
+    * database.
+    *
+    * @return {@link List} of {@link Emp} instance
+    * @throws SystemException
+    * @author bibhushan
+    */
     public static java.util.List<com.lftechnology.sbwbtraining.userapplication.model.Emp> getAllEmployees()
         throws com.liferay.portal.kernel.exception.SystemException {
         return getService().getAllEmployees();

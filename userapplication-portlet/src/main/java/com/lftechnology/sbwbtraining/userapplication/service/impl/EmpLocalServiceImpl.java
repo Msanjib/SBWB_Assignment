@@ -84,7 +84,6 @@ public class EmpLocalServiceImpl extends EmpLocalServiceBaseImpl {
 	 * @author bibhushan
 	 */
 	public List<Emp> searchEmployees(String search) throws SystemException {
-		System.out.println("inside search emp local service:");
 		String searchTerm = new StringBuilder("%").append(search).append("%")
 				.toString();
 		DynamicQuery query2 = DynamicQueryFactoryUtil.forClass(Emp.class);

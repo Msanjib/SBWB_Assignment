@@ -81,7 +81,7 @@ public class EmpPortlet extends MVCPortlet {
 						ActionUtils.getAllEmployeeAsJson(objectList));
 			} else {
 				System.out.println("not a null value");
-				List<Emp> object = searchUser(request, response);
+				List<Emp> object = ActionUtils.searchUser(request, response);
 				writeJSON(request, response,
 						ActionUtils.getAllEmployeeAsJson(object));
 			}
@@ -111,25 +111,7 @@ public class EmpPortlet extends MVCPortlet {
 		EmpLocalServiceUtil.deleteEmp(userId);
 	}
 
-	/**
-	 * This method searches for {@link List} of {@link Emp}, according to
-	 * parameter <code>search</code> given by user in the input.
-	 * 
-	 * @param request
-	 * @param response
-	 * @return {@link List} of {@link Emp} instance
-	 * @throws NoSuchAccountException
-	 * @throws SystemException
-	 * @throws PortalException
-	 * 
-	 * @author bibhushan
-	 */
-	public List<Emp> searchUser(ActionRequest request, ActionResponse response)
-			throws NoSuchAccountException, SystemException, PortalException {
-		String searchItem = request.getParameter("search");
-		List<Emp> objectList = EmpLocalServiceUtil.searchEmployees(searchItem);
-		return objectList;
-	}
+	
 
 	/**
 	 * This method handles the ajax call for addition of records to database, getting user info as

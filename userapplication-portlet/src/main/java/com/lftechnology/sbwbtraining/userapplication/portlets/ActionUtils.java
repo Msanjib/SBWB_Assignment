@@ -3,6 +3,8 @@ package com.lftechnology.sbwbtraining.userapplication.portlets;
 import java.io.IOException;
 import java.util.List;
 
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
@@ -10,6 +12,8 @@ import com.lftechnology.sbwbtraining.division.model.Division;
 import com.lftechnology.sbwbtraining.division.service.DivisionLocalServiceUtil;
 import com.lftechnology.sbwbtraining.userapplication.model.Emp;
 import com.lftechnology.sbwbtraining.userapplication.service.EmpLocalServiceUtil;
+import com.liferay.portal.NoSuchAccountException;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSON;
 import com.lftechnology.sbwbtraining.userapplication.model.Emp;
@@ -139,5 +143,25 @@ public class ActionUtils {
 		recordsjsonObject.put("email", user.getEmail());
 		return recordsjsonObject;
 
+	}
+	
+	/**
+	 * This method searches for {@link List} of {@link Emp}, according to
+	 * parameter <code>search</code> given by user in the input.
+	 * 
+	 * @param request
+	 * @param response
+	 * @return {@link List} of {@link Emp} instance
+	 * @throws NoSuchAccountException
+	 * @throws SystemException
+	 * @throws PortalException
+	 * 
+	 * @author bibhushan
+	 */
+	public static List<Emp> searchUser(ActionRequest request, ActionResponse response)
+			throws NoSuchAccountException, SystemException, PortalException {
+		String searchItem = request.getParameter("search");
+		List<Emp> objectList = EmpLocalServiceUtil.searchEmployees(searchItem);
+		return objectList;
 	}
 }
