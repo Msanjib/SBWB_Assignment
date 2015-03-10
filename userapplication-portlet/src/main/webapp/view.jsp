@@ -39,7 +39,7 @@
 
 	<div class="slider-wrapper cfix" id="slideWrap">
 		<button id="hideInfo" class="hide-info">Hide</button>
-		<img alt="hjkk"
+		<img id ="imageProfile"
 			src="${pageContext.request.contextPath}/images/user.png">
 		<form action="${userInfoURL}" method="post" id="revealUser">
 			<label id="fnameLabel">Sanjib</label> <label id="lnameLabel"
@@ -156,7 +156,9 @@
 								$('#addLabel').text(result.address);
 								$('#phoneLabel').text(result.phoneNumber);
 								$('#emailLabel').text(result.email);
+								$("#imageProfile").attr("src", "${pageContext.request.contextPath}/images/"+result.userId);
 								$("#slideWrap").show(700);
+								
 								console.log("ajax call complete "
 										+ result.firstName);
 								// window.location.href='${userInfoURL}';

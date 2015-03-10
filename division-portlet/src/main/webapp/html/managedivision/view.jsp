@@ -12,7 +12,7 @@
 <div class="form-wrapper cfix">
 	<div class="wrapper-add">
 		<h1 class="add-title">Add your own Department</h1>
-		<form action="${addDivision}" method="post" id="formDepartment">
+		<form action="#" method="post" id="formDepartment">
 				<input id ="divName" type="text" name="divisionName" placeholder="Department Name" />
 				<input type="button" value="Add" onclick="notBlank()">
 				<label id="labelErr"></label>
@@ -78,10 +78,37 @@ function ModifyGridDefaultStyles() {
 }
 function notBlank(){
 	if($("#divName").val() == ''){
+		$('#labelErr').css('color','#ff0000');
 		$("#labelErr").html("Department name is empty.");
 	}else{
-		$("#labelErr").empty();
-		$("#formDepartment").submit();
+		/* $("#labelErr").empty();
+		$("#formDepartment").submit(); */
+		
+		
+		$.ajax({
+			type : 'POST',
+			url : '${addDivision}',
+			data : {
+				divisionName : $("#divName").val()
+			},
+			dataType : 'json',
+			success : function(result) {
+
+				console.log("ajax call completed lkjdkljlk kjhk");
+				$("#divName").val('');
+				$('#labelErr').css('color','#0000ff');
+				$("#labelErr").html("Successfully Added");
+				window.location.reload();
+				
+				// window.location.href='${userInfoURL}';
+			},
+			error : function(result) {
+				console.log("ajax call error complete");
+			}
+		});
+		
+		
+		
 	}
 }
 </script>

@@ -135,13 +135,14 @@ public class ActionUtils {
 	 * @author sanjib maharjan
 	 */
 	public static JSONObject convertUsersDataToJson(Emp user) {
-		JSONObject recordsjsonObject = JSONFactoryUtil.createJSONObject();
-		recordsjsonObject.put("firstName", user.getFirstName());
-		recordsjsonObject.put("lastName", user.getLastName());
-		recordsjsonObject.put("address", user.getAddress());
-		recordsjsonObject.put("phoneNumber", user.getPhoneNumber());
-		recordsjsonObject.put("email", user.getEmail());
-		return recordsjsonObject;
+		JSONObject recordsJsonObject = JSONFactoryUtil.createJSONObject();
+		recordsJsonObject.put("firstName", user.getFirstName());
+		recordsJsonObject.put("lastName", user.getLastName());
+		recordsJsonObject.put("address", user.getAddress());
+		recordsJsonObject.put("phoneNumber", user.getPhoneNumber());
+		recordsJsonObject.put("email", user.getEmail());
+		recordsJsonObject.put("userId", user.getUserId());
+		return recordsJsonObject;
 
 	}
 	

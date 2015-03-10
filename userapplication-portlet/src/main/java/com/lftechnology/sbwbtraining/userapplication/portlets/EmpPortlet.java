@@ -1,5 +1,6 @@
 package com.lftechnology.sbwbtraining.userapplication.portlets;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
@@ -12,6 +13,7 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
+
 import com.lftechnology.sbwbtraining.division.model.Division;
 import com.lftechnology.sbwbtraining.division.service.DivisionLocalServiceUtil;
 import com.lftechnology.sbwbtraining.userapplication.model.Emp;
@@ -23,6 +25,8 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSON;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.upload.UploadPortletRequest;
+import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.service.GroupLocalServiceUtil;
@@ -36,12 +40,12 @@ import com.liferay.util.bridges.mvc.MVCPortlet;
  * 
  */
 public class EmpPortlet extends MVCPortlet {
-	public static Logger LOGGER = Logger.getLogger(EmpPortlet.class
+	public static final Logger LOGGER = Logger.getLogger(EmpPortlet.class
 			.getSimpleName());
 
 	@Override
 	public void doView(RenderRequest renderRequest,
-			RenderResponse renderResponse){
+			RenderResponse renderResponse) {
 		try {
 			List<Division> departments = DivisionLocalServiceUtil
 					.getEveryDivisions();
@@ -52,12 +56,12 @@ public class EmpPortlet extends MVCPortlet {
 			LOGGER.log(Level.SEVERE, "System Exception.{0} {1} {2}",
 					new Object[] { e.getClass(), e.getMessage(), e.getCause() });
 		}
-		
+
 		try {
 			super.doView(renderRequest, renderResponse);
 		} catch (IOException e) {
-			LOGGER.log(Level.SEVERE, "IO Exception.{0} {1} {2}",
-					new Object[] { e.getClass(), e.getMessage(), e.getCause() });
+			LOGGER.log(Level.SEVERE, "IO Exception.{0} {1} {2}", new Object[] {
+					e.getClass(), e.getMessage(), e.getCause() });
 		} catch (PortletException e) {
 			LOGGER.log(Level.SEVERE, "Portlet Exception.{0} {1} {2}",
 					new Object[] { e.getClass(), e.getMessage(), e.getCause() });
@@ -91,11 +95,11 @@ public class EmpPortlet extends MVCPortlet {
 			LOGGER.log(Level.SEVERE, "IO Exception.{0} {1} {2}", new Object[] {
 					e.getClass(), e.getMessage(), e.getCause() });
 		} catch (NoSuchAccountException e) {
-			LOGGER.log(Level.SEVERE, "No Such Account Exception.{0} {1} {2}", new Object[] {
-					e.getClass(), e.getMessage(), e.getCause() });
+			LOGGER.log(Level.SEVERE, "No Such Account Exception.{0} {1} {2}",
+					new Object[] { e.getClass(), e.getMessage(), e.getCause() });
 		} catch (PortalException e) {
-			LOGGER.log(Level.SEVERE, "Portal Exception.{0} {1} {2}", new Object[] {
-					e.getClass(), e.getMessage(), e.getCause() });
+			LOGGER.log(Level.SEVERE, "Portal Exception.{0} {1} {2}",
+					new Object[] { e.getClass(), e.getMessage(), e.getCause() });
 		}
 	}
 
@@ -107,7 +111,7 @@ public class EmpPortlet extends MVCPortlet {
 	 * 
 	 * @author bibhushan
 	 */
-	public void deleteUser(ActionRequest request, ActionResponse response){
+	public void deleteUser(ActionRequest request, ActionResponse response) {
 		long userId = ParamUtil.getLong(request, "userId");
 		try {
 			EmpLocalServiceUtil.deleteEmp(userId);
@@ -134,7 +138,7 @@ public class EmpPortlet extends MVCPortlet {
 	 * @author sanjib maharjan
 	 */
 	public void serveResource(ResourceRequest resourceRequest,
-			ResourceResponse resourceResponse){
+			ResourceResponse resourceResponse) {
 		String uid = resourceRequest.getParameter("uid");
 		if (uid != null) {
 			if (uid.equalsIgnoreCase("add")) {
@@ -177,11 +181,17 @@ public class EmpPortlet extends MVCPortlet {
 					resourceResponse.getWriter().print(recordsjsonObject);
 					super.serveResource(resourceRequest, resourceResponse);
 				} catch (IOException e) {
-					LOGGER.log(Level.SEVERE, "IO Exception.{0} {1} {2}",
-							new Object[] { e.getClass(), e.getMessage(), e.getCause() });
+					LOGGER.log(
+							Level.SEVERE,
+							"IO Exception.{0} {1} {2}",
+							new Object[] { e.getClass(), e.getMessage(),
+									e.getCause() });
 				} catch (PortletException e) {
-					LOGGER.log(Level.SEVERE, "Portlet Exception.{0} {1} {2}",
-							new Object[] { e.getClass(), e.getMessage(), e.getCause() });
+					LOGGER.log(
+							Level.SEVERE,
+							"Portlet Exception.{0} {1} {2}",
+							new Object[] { e.getClass(), e.getMessage(),
+									e.getCause() });
 				}
 			} else {
 				Emp employee = null;
@@ -190,10 +200,13 @@ public class EmpPortlet extends MVCPortlet {
 					if (employee != null) {
 						try {
 							resourceResponse.getWriter().print(
-									ActionUtils.convertUsersDataToJson(employee));
+									ActionUtils
+											.convertUsersDataToJson(employee));
 						} catch (IOException e) {
-							LOGGER.log(Level.SEVERE, "IO Exception.{0} {1} {2}",
-									new Object[] { e.getClass(), e.getMessage(), e.getCause() });
+							LOGGER.log(Level.SEVERE,
+									"IO Exception.{0} {1} {2}",
+									new Object[] { e.getClass(),
+											e.getMessage(), e.getCause() });
 						}
 					}
 				} catch (NumberFormatException e) {
@@ -218,11 +231,17 @@ public class EmpPortlet extends MVCPortlet {
 				try {
 					super.serveResource(resourceRequest, resourceResponse);
 				} catch (IOException e) {
-					LOGGER.log(Level.SEVERE, "IO Exception.{0} {1} {2}",
-							new Object[] { e.getClass(), e.getMessage(), e.getCause() });
+					LOGGER.log(
+							Level.SEVERE,
+							"IO Exception.{0} {1} {2}",
+							new Object[] { e.getClass(), e.getMessage(),
+									e.getCause() });
 				} catch (PortletException e) {
-					LOGGER.log(Level.SEVERE, "Portlet Exception.{0} {1} {2}",
-							new Object[] { e.getClass(), e.getMessage(), e.getCause() });
+					LOGGER.log(
+							Level.SEVERE,
+							"Portlet Exception.{0} {1} {2}",
+							new Object[] { e.getClass(), e.getMessage(),
+									e.getCause() });
 				}
 			}
 
@@ -239,8 +258,11 @@ public class EmpPortlet extends MVCPortlet {
 						new Object[] { e.getClass(), e.getMessage(),
 								e.getCause() });
 			} catch (IOException e) {
-				LOGGER.log(Level.SEVERE, "IO Exception.{0} {1} {2}",
-						new Object[] { e.getClass(), e.getMessage(), e.getCause() });
+				LOGGER.log(
+						Level.SEVERE,
+						"IO Exception.{0} {1} {2}",
+						new Object[] { e.getClass(), e.getMessage(),
+								e.getCause() });
 			}
 		}
 	}
@@ -370,4 +392,28 @@ public class EmpPortlet extends MVCPortlet {
 			}
 		}
 	}
+
+	public void uploadPic(ActionRequest actionRequest,
+			ActionResponse actionResponse) throws IOException,
+			PortletException {
+			String realPath = getPortletContext().getRealPath("/images");
+			String userId = actionRequest.getParameter("id");
+			// String userId=actionRequest.getParameter("userId");
+			System.out.println("real path" + realPath);
+			UploadPortletRequest uploadRequest = PortalUtil
+			.getUploadPortletRequest(actionRequest);
+			String a = actionRequest.getParameter("imageFile");
+			System.out.println(a);
+			String sourceFileName = uploadRequest.getFileName("imageFile");
+			// String ext = FileUtil.getExtension("imageFile");
+			File oldFile = uploadRequest.getFile("imageFile");
+					File newFile = new File(realPath + "/" + userId);
+					System.out.println("file-Name: " + sourceFileName);
+					try {
+						FileUtil.copyFile(oldFile, newFile);
+					} catch (IOException e2) {
+						e2.printStackTrace();
+					}
+
+				}
 }

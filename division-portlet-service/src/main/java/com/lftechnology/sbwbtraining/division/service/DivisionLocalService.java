@@ -235,15 +235,39 @@ public interface DivisionLocalService extends BaseLocalService,
         java.lang.String[] parameterTypes, java.lang.Object[] arguments)
         throws java.lang.Throwable;
 
+    /**
+    * This method fetches all entry of {@link Division} from the database table
+    * and returns them as a list
+    *
+    * @return the list of all {@link Division} entry from the database table
+    * @author sanjib maharjan
+    */
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public java.util.List<com.lftechnology.sbwbtraining.division.model.Division> getEveryDivisions()
         throws com.liferay.portal.kernel.exception.SystemException;
 
+    /**
+    * This method add or update the entry of {@link Division} instance in the
+    * database table
+    *
+    * @param division
+    a {@link Division} instance to be added or updated to the
+    database
+    * @author sanjib maharjan
+    */
     public com.lftechnology.sbwbtraining.division.model.Division addUpdateDivision(
         com.lftechnology.sbwbtraining.division.model.Division division)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException;
 
+    /**
+    * This method removes entry of {@link Division} from the database table
+    * that matches with the divisionId
+    *
+    * @param divisionId
+    the response sent by the portlet
+    * @author sanjib maharjan
+    */
     public void deleteDivisionById(long divisionId)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException;

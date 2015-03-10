@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
@@ -13,10 +14,13 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
+
 import com.lftechnology.sbwbtraining.division.model.Division;
 import com.lftechnology.sbwbtraining.division.service.DivisionLocalServiceUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.util.PortalUtil;
@@ -24,6 +28,7 @@ import com.liferay.util.bridges.mvc.MVCPortlet;
 
 /**
  * Portlet implementation class ManageDivisionPortlet
+ * 
  * @author sanjib maharjan
  */
 public class ManageDivisionPortlet extends MVCPortlet {
@@ -32,7 +37,7 @@ public class ManageDivisionPortlet extends MVCPortlet {
 
 	@Override
 	public void doView(RenderRequest renderRequest,
-			RenderResponse renderResponse){
+			RenderResponse renderResponse) {
 		try {
 			renderRequest.setAttribute("noDep",
 					DivisionLocalServiceUtil.getDivisionsCount());
@@ -43,8 +48,8 @@ public class ManageDivisionPortlet extends MVCPortlet {
 		try {
 			super.doView(renderRequest, renderResponse);
 		} catch (IOException e) {
-			LOGGER.log(Level.SEVERE, "IO Exception.{0} {1} {2}",
-					new Object[] { e.getClass(), e.getMessage(), e.getCause() });
+			LOGGER.log(Level.SEVERE, "IO Exception.{0} {1} {2}", new Object[] {
+					e.getClass(), e.getMessage(), e.getCause() });
 		} catch (PortletException e) {
 			LOGGER.log(Level.SEVERE, "Portlet Exception.{0} {1} {2}",
 					new Object[] { e.getClass(), e.getMessage(), e.getCause() });
@@ -61,7 +66,7 @@ public class ManageDivisionPortlet extends MVCPortlet {
 	 * @author sanjib maharjan
 	 */
 	public void serveResource(ResourceRequest resourceRequest,
-			ResourceResponse resourceResponse){
+			ResourceResponse resourceResponse) {
 		try {
 			resourceResponse.getWriter().print(
 					ActionUtils.getDepartmentAsJson().toString());
@@ -69,8 +74,8 @@ public class ManageDivisionPortlet extends MVCPortlet {
 			LOGGER.log(Level.SEVERE, "System Exception.{0} {1} {2}",
 					new Object[] { e.getClass(), e.getMessage(), e.getCause() });
 		} catch (IOException e) {
-			LOGGER.log(Level.SEVERE, "IO Exception.{0} {1} {2}",
-					new Object[] { e.getClass(), e.getMessage(), e.getCause() });
+			LOGGER.log(Level.SEVERE, "IO Exception.{0} {1} {2}", new Object[] {
+					e.getClass(), e.getMessage(), e.getCause() });
 		}
 	}
 
@@ -154,6 +159,7 @@ public class ManageDivisionPortlet extends MVCPortlet {
 	 */
 	public void addNewDivision(ActionRequest request, ActionResponse response) {
 		String divisionName = request.getParameter("divisionName");
+		System.out.println("sldjflksdjfklk>>>>>>>>>>>>>>>>>");
 		Division division = DivisionLocalServiceUtil.createDivision(0);
 		division.setDivisionName(divisionName);
 		division.setCompanyId(PortalUtil.getCompanyId(request));
@@ -171,6 +177,15 @@ public class ManageDivisionPortlet extends MVCPortlet {
 		} catch (SystemException e) {
 			LOGGER.log(Level.SEVERE, "System Exception.{0} {1} {2}",
 					new Object[] { e.getClass(), e.getMessage(), e.getCause() });
+		}
+
+		JSONObject recordsjsonObject = JSONFactoryUtil.createJSONObject();
+		recordsjsonObject.put("firstName", "");
+		try {
+			writeJSON(request, response, recordsjsonObject);
+		} catch (IOException e) {
+			LOGGER.log(Level.SEVERE, "IO Exception.{0} {1} {2}", new Object[] {
+					e.getClass(), e.getMessage(), e.getCause() });
 		}
 
 	}
