@@ -1,0 +1,31 @@
+/target/
+*.class
+
+department-management-portlet/target/
+department-management-portlet-service/target/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# Maven
+target
+.externalToolBuilders
+
+# Eclipse
+.project
+.classpath
+.settings
+.pom.xml~
+*.*~
+utility/dependency-reduced-pom.xml
+*.jasper
+bin/*
+*/bin/*
+
+# External jar which have to unignore
+!/sbworkbench_resources/jar_files/jce/*/*.jar
+!/sbworkbench_resources/jar_files/intuit/*.jar
+!/sbworkbench_resources/jar_files/pingfed/*.jar
+
