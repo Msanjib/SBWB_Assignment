@@ -46,6 +46,7 @@ public class EmpPortlet extends MVCPortlet {
 	@Override
 	public void doView(RenderRequest renderRequest,
 			RenderResponse renderResponse) {
+		System.out.println("do view called");
 		try {
 			List<Division> departments = DivisionLocalServiceUtil
 					.getEveryDivisions();
@@ -140,7 +141,20 @@ public class EmpPortlet extends MVCPortlet {
 	public void serveResource(ResourceRequest resourceRequest,
 			ResourceResponse resourceResponse) {
 		String uid = resourceRequest.getParameter("uid");
-		if (uid != null) {
+		String id = resourceRequest.getParameter("id");
+		if (id != null) {
+			String realPath = getPortletContext().getRealPath("/images");
+			UploadPortletRequest uploadRequest = PortalUtil
+					.getUploadPortletRequest(resourceRequest);
+			File oldFile = uploadRequest.getFile("imageFile");
+			File newFile = new File(realPath + "/" + id);
+			try {
+				FileUtil.copyFile(oldFile, newFile);
+			} catch (IOException e2) {
+				e2.printStackTrace();
+			}
+
+		} else if (uid != null) {
 			if (uid.equalsIgnoreCase("add")) {
 				Emp employee = EmpLocalServiceUtil.createEmp(0);
 				employee.setFirstName(resourceRequest.getParameter("fname"));
@@ -394,26 +408,24 @@ public class EmpPortlet extends MVCPortlet {
 	}
 
 	public void uploadPic(ActionRequest actionRequest,
-			ActionResponse actionResponse) throws IOException,
-			PortletException {
-			String realPath = getPortletContext().getRealPath("/images");
-			String userId = actionRequest.getParameter("id");
-			// String userId=actionRequest.getParameter("userId");
-			System.out.println("real path" + realPath);
-			UploadPortletRequest uploadRequest = PortalUtil
-			.getUploadPortletRequest(actionRequest);
-			String a = actionRequest.getParameter("imageFile");
-			System.out.println(a);
-			String sourceFileName = uploadRequest.getFileName("imageFile");
-			// String ext = FileUtil.getExtension("imageFile");
-			File oldFile = uploadRequest.getFile("imageFile");
-					File newFile = new File(realPath + "/" + userId);
-					System.out.println("file-Name: " + sourceFileName);
-					try {
-						FileUtil.copyFile(oldFile, newFile);
-					} catch (IOException e2) {
-						e2.printStackTrace();
-					}
+			ActionResponse actionResponse) throws IOException, PortletException {
+		String realPath = getPortletContext().getRealPath("/images");
+		String userId = actionRequest.getParameter("id");
+		// String userId=actionRequest.getParameter("userId");
+		System.out.println("real path" + realPath);
+		UploadPortletRequest uploadRequest = PortalUtil
+				.getUploadPortletRequest(actionRequest);
+		String a = actionRequest.getParameter("imageFile");
+		System.out.println(a);
+		String sourceFileName = uploadRequest.getFileName("imageFile");
+		// String ext = FileUtil.getExtension("imageFile");
+		File oldFile = uploadRequest.getFile("imageFile");
+		File newFile = new File(realPath + "/" + userId);
+		try {
+			FileUtil.copyFile(oldFile, newFile);
+		} catch (IOException e2) {
+			e2.printStackTrace();
+		}
 
-				}
+	}
 }

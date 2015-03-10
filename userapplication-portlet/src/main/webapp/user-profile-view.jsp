@@ -15,9 +15,9 @@
 --%>
 
 <%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet"%>
-<portlet:actionURL name="uploadPic" var="picUploadURL" >
+<portlet:resourceURL var="picUploadURL" >
 	<portlet:param name="id" value="${userInfo.userId}"/>
-</portlet:actionURL>
+</portlet:resourceURL>
 <portlet:defineObjects />
 <div class="prof-wrapper">
 	<div class="fix-height"></div>
